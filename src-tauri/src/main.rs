@@ -43,7 +43,7 @@ use routes::{
 };
 
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 #[derive(Parser)]
 #[command(author="Imrany <imranmat254@gmail.com>", version, about="A networking program for file sharing.", long_about = None)]
@@ -104,7 +104,7 @@ async fn main(){
 
         }
         None => {
-            // serve_anvel().await;
+            //serve_anvel().await;
             start_anvel();
         }
     }
@@ -164,13 +164,6 @@ async fn serve_anvel(){
     .bind(ipv4);
     match server {
         Ok(server) => {
-            let url=format!("http://localhost:{port}/");
-            if let Err(e)= launch_browser(&url).await{
-                println!(" ERROR: An error occurred when opening {url} {e}");
-            }else {
-                println!(" INFO: Launching anvel...");
-                println!(" INFO: Open {url}");
-            }
             server.run().await.unwrap_or_else(|err| println!(" ERROR: {err} "));
         },
         Err(e) =>  println!(" {} ",e)

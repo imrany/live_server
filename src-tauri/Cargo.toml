@@ -7,7 +7,8 @@ license = "MIT License"
 authors = [
     "imrany <imranmat254@gmail.com>",
 ]
-repository = "https://github.com/imrany/zippy/web"
+publish=false
+repository = "https://github.com/imrany/anvel"
 readme = "README.md"
 categories = ["command-line-utilities", "wasm", "web-programming"]
 keywords = ["Anvel", "Productivity", "Network", "connect"]
@@ -17,6 +18,15 @@ rust-version = "1.76.0"
 
 [build-dependencies]
 tauri-build = { version = "1", features = [] }
+
+[package.metadata]
+authors = ["imrany <imranmat254@gmail.com>"]
+license = "MIT License"
+repository = "https://github.com/imrany/anvel"
+homepage = "https://yourwebsite.com"
+description = "Anvel is a networking program for file sharing.."
+ProductName = "Anvel"
+LegalCopyright = "Copyright © 2022"
 
 [dependencies]
 actix-cors = "0.7.0"

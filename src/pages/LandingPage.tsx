@@ -33,7 +33,7 @@ export default function LandingPage(props:Props){
 			   <button onClick={()=>{
                                         localStorage.setItem("path","home")
                                         window.location.reload()
-                                }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[30px] w-fit px-[20px] rounded-sm bg-[#EDFFA5]">
+                                }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[30px] w-fit px-[20px] font-semibold rounded-sm bg-[#EDFFA5]">
                                 <span>Quick Start</span>
                                 <MdArrowForward className="w-[15px] h-[15px]"/>
                             </button>
@@ -41,13 +41,13 @@ export default function LandingPage(props:Props){
 			   <button onClick={()=>{
                                         localStorage.setItem("path",previous)
                                         window.location.reload()
-                                }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[30px] w-fit px-[20px] rounded-sm bg-[#EDFFA5]">
+                                }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[30px] w-fit font-semibold px-[20px] rounded-sm bg-[#EDFFA5]">
                                 <MdRefresh className="w-[20px] h-[20px]"/>
                                 <span>Open Recent Folder</span>
                             </button>
 
 			  )}
-                            <button onClick={()=>openDialog("open_folder_dialog")} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[30px] w-fit px-[20px] rounded-sm bg-[#EDFFA5]">
+                            <button onClick={()=>openDialog("open_folder_dialog")} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[30px] w-fit px-[20px] rounded-sm bg-[#EDFFA5] font-semibold">
                                 <MdFolder className="w-[20px] h-[20px]"/>
                                 <span>Open Folder</span>
                             </button>
