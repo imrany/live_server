@@ -1,0 +1,120 @@
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist"
+  },
+  "package": {
+    "productName": "Anvel",
+    "version": "0.2.4"
+  },
+  "tauri": {
+    "allowlist": {
+        "all": true,
+        "globalShortcut": {
+            "all": true
+        },
+        "http": {
+            "all": true,
+            "request": true
+        },
+        "notification": {
+            "all": true
+        },
+        "os": {
+            "all": true
+        },
+        "path": {
+            "all": true
+        },
+        "fs": {
+            "all": true, 
+            "readFile": true,
+            "writeFile": true,
+            "readDir": true,
+            "copyFile": true,
+            "createDir": true,
+            "removeDir": true,
+            "removeFile": true,
+            "renameFile": true,
+            "exists": true
+        },
+        "dialog": {
+            "all": true,
+            "ask": true,
+            "confirm": true, 
+            "message": true,
+            "open": true,
+            "save": true 
+        },
+        "clipboard":{
+            "all": true,
+            "writeText": true,
+            "readText": true
+        },
+        "shell": {
+            "all": true,
+            "open": true
+        },
+        "window":{
+            "all": true,
+            "create": true,
+            "center": true,
+            "requestUserAttention": true,
+            "setResizable": true,
+            "setMaximizable": true,
+            "setMinimizable": true,
+            "setClosable": true,
+            "setTitle": true,
+            "maximize": true,
+            "unmaximize": true,
+            "minimize": true,
+            "unminimize": true,
+            "show": true,
+            "hide": true,
+            "close": true,
+            "setDecorations": true,
+            "setAlwaysOnTop": true,
+            "setContentProtected": true,
+            "setSize": true,
+            "setMinSize": true,
+            "setMaxSize": true,
+            "setPosition": true,
+            "setFullscreen": true,
+            "setFocus": true,
+            "setIcon": true,
+            "setSkipTaskbar": true,
+            "setCursorGrab": true,
+            "setCursorVisible": true,
+            "setCursorIcon": true,
+            "setCursorPosition": true,
+            "setIgnoreCursorEvents": true,
+            "startDragging": true,
+            "print": true
+        }
+    },
+    "windows": [
+      {
+        "title": "Anvel",
+        "width": 800,
+        "height": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.imrany",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ]
+    }
+  }
+}

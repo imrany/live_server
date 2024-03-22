@@ -1,9 +1,0 @@
-{
-    "name":"Anvel",
-    "short_name":"Anvel",
-    "description":"Anvel is a networking program for file sharing.",
-    "display":"fullscreen",
-    "orientation":"portrait",
-    "start_url":"/",
-    "icons":[]
-} 
