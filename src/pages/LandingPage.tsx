@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { FaGithub, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { MdArrowForward, MdFolder, MdMail, MdRefresh } from "react-icons/md"
 import { openDialog } from "../components/actions"
+import { invoke } from "@tauri-apps/api/tauri"
 
 type Props={
     data:{
@@ -11,8 +12,13 @@ type Props={
 export default function LandingPage(props:Props){
     let previous:any=localStorage.getItem("previous")===null?"":localStorage.getItem("previous")
 
+    async function startAnvel(){
+        await invoke("serve_anvel")
+    }
+
     useEffect(()=>{
 		document.title="Welcome to Anvel"
+        startAnvel()
     },[])
     return(
         <div style={props.data.backgroundImage!=="default"?{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('${props.data.backgroundImage}') top no-repeat`, backgroundSize:"cover", backgroundAttachment:"fixed"}:{background: "var(--theme-dark)"}} className="flex flex-col items-center justify-center h-screen w-screen">

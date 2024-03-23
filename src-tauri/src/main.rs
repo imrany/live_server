@@ -104,12 +104,12 @@ async fn main(){
 
         }
         None => {
-            //serve_anvel().await;
             start_anvel();
         }
     }
 }
 
+#[tauri::command]
 async fn serve_anvel(){
     // Create the '/home/username/Downloads/Anvel shared' directory if it doesn't exist
     let mut shared_dir=PathBuf::new();
@@ -118,7 +118,6 @@ async fn serve_anvel(){
     tokio::fs::create_dir_all(shared_dir.to_str().unwrap()).await.unwrap();
 
     // let path: PathBuf = Path::new(PathBuf::from(current_exe().unwrap()).parent().unwrap()).join("static_files");
-    let path =Path::new("./static_files");
     let app_state = web::Data::new(AppState {
         root_dir: get_root_directory().unwrap(),
         home_dir:dirs::home_dir().unwrap(),
@@ -127,7 +126,7 @@ async fn serve_anvel(){
     });
     let port:u16=8000;
     let ipv4: (Ipv4Addr, u16)=("0.0.0.0".parse().unwrap(),port);
-    let server=HttpServer::new(move ||{
+    HttpServer::new(move ||{
         let app_state = app_state.clone();
         let cors=Cors::default()
             .allow_any_origin() // Specify the allowed origin or for all us /"*"/
@@ -148,26 +147,12 @@ async fn serve_anvel(){
                     .service(download)
                     // .service(get_shared_folder_contents)
             )
-            .service(
-                web::scope("/*")
-                    .service(Files::new("/", &path).index_file("index.html")
-                        .default_handler(fn_service(|req: ServiceRequest| async {
-                            let (req, _) = req.into_parts();
-                            // let current_exe_path=PathBuf::from(current_exe().unwrap());
-                            let file = NamedFile::open_async(Path::new("./static_files/index.html")).await?;
-                            let res = file.into_response(&req);
-                            Ok(ServiceResponse::new(req, res))
-                        }))
-                    )
-            )
     })
-    .bind(ipv4);
-    match server {
-        Ok(server) => {
-            server.run().await.unwrap_or_else(|err| println!(" ERROR: {err} "));
-        },
-        Err(e) =>  println!(" {} ",e)
-    }
+    .bind(ipv4)
+    .unwrap()
+    .run()
+    .await
+    .unwrap();
 }
 
 async fn serve_me(path: String) {
@@ -218,7 +203,7 @@ fn greet(name: &str) -> String {
 
 fn start_anvel() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet,serve_anvel])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
