@@ -94,19 +94,15 @@ pub async fn directory_content(state: web::Data<AppState>, path: web::Json<RootP
 
     let directory_path = match path_dir.to_str().unwrap() {
         "root" => {
-            println!("{}", root.to_str().unwrap());
             root
         },
         "home" =>{
-            println!("{}",home_dir.to_str().unwrap());
             home_dir
         },
         "Anvel shared"=>{
-            println!("{}",shared_dir.to_str().unwrap());
             shared_dir
         }
         _ => {
-            println!("{}", path_dir.to_str().unwrap());
             path_dir
         }
     };
@@ -145,7 +141,6 @@ pub async fn directory_content(state: web::Data<AppState>, path: web::Json<RootP
             contents
         }
         Err(e) => {
-            println!("{e}");
             let err_message=ErrorMessage{
                 message:format!("{e} with the name '{}'",directory_path.to_str().unwrap())
             };
@@ -258,13 +253,11 @@ pub async fn send(resource: web::Json<SendInfo>)-> HttpResponse{
                 return HttpResponse::Ok().json(res_json);
             } else {
                 let res_text=format!("Failed to send '{file_name}' to '{server_url}'.  Status code: {}",res.status());
-                println!("{res_text}");
                 return HttpResponse::InternalServerError().json(res_text);
             }
         },
         Err(e) => {
             let res_text=format!("{e}");
-            println!("{res_text}");
             return HttpResponse::InternalServerError().json(res_text);
         }
     }
@@ -282,7 +275,6 @@ pub async fn open_file(path: web::Json<RootPath>) -> impl Responder {
             .spawn();
 
         if let Ok(file) = open_cmd {
-            println!("{:?}", file);
             return HttpResponse::Ok().json("File opened");
         }else {
             return HttpResponse::InternalServerError().json("Failed to open file");
@@ -296,7 +288,6 @@ pub async fn open_file(path: web::Json<RootPath>) -> impl Responder {
             .spawn();
             
         if let Ok(file) = open_cmd {
-            println!("{:?}", file);
             return HttpResponse::Ok().json("File opened");
         }else {
             return HttpResponse::InternalServerError().json("Failed to open file");

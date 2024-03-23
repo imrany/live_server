@@ -42,9 +42,6 @@ use routes::{
     // get_shared_folder_contents,
 };
 
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
-#[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
 #[derive(Parser)]
 #[command(author="Imrany <imranmat254@gmail.com>", version, about="A networking program for file sharing.", long_about = None)]
 struct Args {
@@ -194,6 +191,9 @@ async fn serve_me(path: String) {
         Err(e) =>  println!(" {} ",e)
     }
 }
+
+// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+#[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
