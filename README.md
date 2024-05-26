@@ -1,19 +1,32 @@
-__Anvel__ is a networking program for file sharing.
+<h1 align="center">Anvel</h1><br/>
 
-## Looking for latest release of a version branch?
+<p align="center">
+  <a href="#">
+    <img src="https://github.com/imrany/anvel/blob/main/public/favicon.svg" alt="Anvel's logo" height="140">
+  </a>
+</p>
+
+<p align="center">
+    __Anvel__ is a networking program for file sharing.
+</p>
+
+----
+
+#### Get all latest version here
 
 | __Anvel versions__ | __Status__ | __Release Date__ | __Releases__ |
 |--------------------|------------|------------------|--------------|
-| v0.2.3 | LTS - Recommended for most users | 2023-03-19 | [Releases](./releases.md) |
-| v0.2.2 | Obsolete - Not maintained | 2023-03-18 | [Releases](./releases.md) |
-| v0.2.1 | Obsolete - Not Maintained | 2023-03-18 | [Releases](./releases.md) |
-| v0.2.0 | Obsolete - Not Maintained | 2023-03-16 | [Releases](./releases.md) |
+| v0.2.6 | LTS - Recommended for most users | 2024-05-26 | [Releases](./releases.md) |
+| v0.2.3 | Obsolete - Not maintained | 2024-03-19 | [Releases](./releases.md) |
+| v0.2.2 | Obsolete - Not maintained | 2024-03-18 | [Releases](./releases.md) |
+| v0.2.1 | Obsolete - Not Maintained | 2024-03-18 | [Releases](./releases.md) |
+| v0.2.0 | Obsolete - Not Maintained | 2024-03-16 | [Releases](./releases.md) |
 
 To get all previous releases, go to [Releases](./releases.md)
 
-## How to setup Anvel
+#### How to setup Anvel
 
-### Linux
+#### Linux
 * Download the latest linux release
 * extract the `.tar.gz` folder, rename the folder to `anvel` move the folder to `~`
 
@@ -32,7 +45,7 @@ export PATH=$PATH:/home/<Your-Username>/anvel/bin
 Replace `<Your-Username>` with your username.
 
 
-### Windows
+#### Windows
 * Download the latest windows release.
 
 * extract the `.zip` folder, rename the folder to `anvel` move the folder to `C:/Program Files`.
@@ -44,44 +57,3 @@ Replace `<Your-Username>` with your username.
 * On user variables, under `Path`, press `New` then paste `C:/Program Files/anvel/bin`.
 
 * Press apply then ok.
-
-
-### Testing
-Testing if anvel is configured correctly. Open `cmd` then type `anvel --help` press enter.
-You will get 
-```bash
-A networking program for file sharing..
-
-Usage: anvel [OPTIONS] [COMMAND]
-
-Commands:
-  serve  Serves a specific folder
-  help   Print this message or the help of the given subcommand(s)
-
-Options:
-  -r, --root <PATH>  Path to the folder you want to serve
-  -h, --help         Print help
-  -V, --version      Print version
-```
-This means it's correctly installed and configure.
-
-
-## Usage 
-
-### Open Anvel
-To launch anvel click on `anvel.exe` or run 
-```bash
-anvel
-```
-
-### To serve a folder
-Use it to serve static files from a folder, example serving a website locally.
-
-```bash
-anvel serve /path-to-static-folder
-```
-Example: to serve your current directory.
-```bash
-anvel serve ./
-```
-anvel will look for the root `index.html` and serve it or it will provide a list of files and folders in that directory you are serving if it doesn't find `index.html`.
