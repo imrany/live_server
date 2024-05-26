@@ -18,15 +18,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
 
-  --primary-01:#fff;
-  --primary-02:#f2f2f2;
+  --primary-01:light-dark(#fff,#151515);
+  --primary-02:light-dark(#f2f2f2,#3c3c3c);
   --primary-03:#f3f3f3;
-  --primary-04:black;
-
-
-  --secondary-01:#151515;
-  --seconday-04:#252525;
+  --primary-04:light-dark(black,#252525);
 
   --theme-dark: white;
   --hover-gray:#3c3c3c;
