@@ -24,6 +24,7 @@ use routes::{
     send,
     receive,
     download,
+    websocket
     // get_shared_folder_contents,
 };
 
@@ -85,6 +86,7 @@ async fn serve_anvel(){
                     .service(send)
                     .service(receive)
                     .service(download)
+                    .service(websocket)
                     // .service(get_shared_folder_contents)
             )
     })

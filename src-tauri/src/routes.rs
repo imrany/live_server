@@ -14,6 +14,10 @@ use reqwest::{
         Part
     }
 };
+use notify_rust::{
+    Timeout,
+    Notification
+};
 use actix_files::NamedFile;
 use actix_multipart::Multipart;
 use futures_util::stream::StreamExt;
@@ -36,6 +40,7 @@ use serde::{
 // use serde_json::json;
 use std::process::Command;
 use local_ip_address::local_ip;
+use actix_web_actors::ws;
 
 #[derive(Serialize,Deserialize, Debug)]
 struct DirectoryObject {
@@ -214,7 +219,15 @@ pub async fn receive(state: web::Data<AppState>,mut payload: Multipart) -> Resul
             file.write_all(&data).await?;
         }
 
-        println!("Received file: {}", filename);
+        //println!("Received file: {}", filename);
+        //show file recieved notification
+        Notification::new()
+            .summary("Anvel - New file received")
+            .body("You've received a new file")
+            .icon("thunderbird")
+            .appname("Anvel")
+            .timeout(Timeout::Milliseconds(10000)) //milliseconds
+            .show().unwrap();
     }
 
     Ok(HttpResponse::Ok().json("File was received successfully"))
@@ -249,7 +262,6 @@ pub async fn send(resource: web::Json<SendInfo>)-> HttpResponse{
             // Check the server's response
             if res.status().is_success() {
                 let res_json:String=res.json().await.unwrap();
-                println!("{res_json}");
                 return HttpResponse::Ok().json(res_json);
             } else {
                 let res_text=format!("Failed to send '{file_name}' to '{server_url}'.  Status code: {}",res.status());
@@ -321,4 +333,26 @@ pub async fn get_ip_address()-> impl Responder {
         };
         return HttpResponse::InternalServerError().json(err_message);
     }
+}
+
+//websocket
+struct MyWebSocket;
+
+impl Actor for MyWebSocket {
+    type Context = ws::WebsocketContext<Self>;
+}
+
+impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for MyWebSocket {
+    fn handle(&mut self, msg: Result<ws::Message, ws::ProtocolError>, ctx: &mut Self::Context) {
+        match msg {
+            Ok(ws::Message::Text(text)) => ctx.text(text), // Echo the text back
+            Ok(ws::Message::Binary(bin)) => ctx.binary(bin),
+            _ => (),
+        }
+    }
+}
+
+#[get("/ws")]
+pub async fn websocket(req: HttpRequest, stream: web::Payload) -> impl Responder {
+    ws::start(MyWebSocket {}, &req, stream)
 }
