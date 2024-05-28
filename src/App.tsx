@@ -8,8 +8,10 @@ import Layout from "./pages/Layout";
 import { useState, useEffect } from "react";
 import { UserPreference } from "./types/definitions";
 import { invoke } from "@tauri-apps/api/tauri"
+import socket from "./ws"
 
 function App() {
+  let [ws,setWs]=useState(null)
   let userPreference:UserPreference={
     backgroundImage:"default"
   }
@@ -34,7 +36,26 @@ function App() {
 
   useEffect(()=>{
     startAnvel()
+    socket.onopen = () => {
+      console.log('WebSocket connection established',socket);
+      setWs(socket)
+    };
+
+    socket.onmessage=(event:any)=>{
+        console.log(event)
+    }
+
+    socket.onopen = () => {
+      console.log('WebSocket connection established');
+      setWs(socket);
+    };
   },[])
+
+  function sendMessage(){
+    if(ws){
+        ws.send("hello")
+    }
+  }
   return (
     <BrowserRouter>
       <Routes>
