@@ -142,7 +142,7 @@ export default function Footer(props:Props){
                                                 let [showChevronDown,setShowChevronDown]=useState(false)
                                                 let icon
                                                 switch (notification.priority) {
-                                                    case "not important":
+                                                    case "important":
                                                         icon=(
                                                             <motion.div
                                                             whileHover={{
@@ -155,7 +155,7 @@ export default function Footer(props:Props){
                                                         )
                                                         break;
                                                 
-                                                    case "important":
+                                                    case "not important":
                                                         icon=(
                                                             <motion.div
                                                             whileHover={{
@@ -266,7 +266,7 @@ export default function Footer(props:Props){
                                             let [message,setMessage]=useState(<>{notification.message.slice(0,30)}...</>)
                                             let icon
                                             switch (notification.priority) {
-                                                case "not important":
+                                                case "important":
                                                     icon=(
                                                         <motion.div
                                                         whileHover={{
@@ -279,7 +279,7 @@ export default function Footer(props:Props){
                                                     )
                                                     break;
                                             
-                                                case "important":
+                                                case "not important":
                                                     icon=(
                                                         <motion.div
                                                         whileHover={{

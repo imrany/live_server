@@ -215,8 +215,16 @@ export default function Home(props:Props){
             let parseRes=await response.json()
             if(response.ok){
                 console.log(parseRes)
+                setNotifications([{
+                        priority:"important",
+                        message:parseRes
+                }])
             }else{
                 console.log(parseRes)
+                setNotifications([{
+                        priority:"not important",
+                        message:parseRes
+                }])
             }
             setIsLoading(false)
         }catch(error:any){
@@ -299,20 +307,6 @@ export default function Home(props:Props){
     useEffect(()=>{
         open(`${API_URL}/api/directory_content`)
         getIPs(`${API_URL}/api/get_ip_address`)
-        setNotifications([
-            {
-                priority:"not important",
-                message:"Hello welcome to anvel, contact our support via imranmat254@gmail.com for help."
-            },
-            {
-                priority:"not important",
-                message:"Turn on Hotspot or WIFI and connect with other person using anvel."
-            },
-            {
-                priority:"important",
-                message:"Zero connections"
-            },
-        ])
 	},[counter])
     return(
         <>
