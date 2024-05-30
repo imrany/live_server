@@ -170,6 +170,18 @@ pub async fn download(req: HttpRequest) -> Result<NamedFile> {
 //     Ok(NamedFile::open(file_path)?)
 // }
 
+#[get("/ping/{sender_ip}")]
+pub async fn ping(sender_ip: web::Path<String>)->HttpResponse{
+    Notification::new()
+        .summary("Anvel - Ping alert")
+        .body(format!("Device '{}' can now send you files.",&sender_ip.as_str()).as_str())
+        .icon("thunderbird")
+        .appname("Anvel")
+        .timeout(Timeout::Milliseconds(10000)) //milliseconds
+        .show().unwrap();
+    HttpResponse::Ok().json("pong")
+}
+
 // #[get("/shared_folder")]
 // pub async fn get_shared_folder_contents()-> HttpResponse{
 //     let shared_folder_path=path::PathBuf::from("./shared");

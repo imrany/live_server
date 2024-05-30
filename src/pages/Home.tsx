@@ -215,15 +215,15 @@ export default function Home(props:Props){
             let parseRes=await response.json()
             if(response.ok){
                 console.log(parseRes)
-                setNotifications([{
-                        priority:"important",
-                        message:parseRes
+                setNotifications(prevNotifications => [...prevNotifications,{
+                    priority:"important",
+                    message:parseRes
                 }])
             }else{
                 console.log(parseRes)
-                setNotifications([{
-                        priority:"not important",
-                        message:parseRes
+                setNotifications(prevNotifications => [...prevNotifications,{
+                    priority:"not important",
+                    message:`${parseRes}`
                 }])
             }
             setIsLoading(false)
@@ -301,6 +301,31 @@ export default function Home(props:Props){
             setTimeout(() => {
                 setCounter(i)
             }, 500);
+        }
+    }
+
+    async function handlePing(e:any){
+        try{
+            e.preventDefault()
+            let configs:Configurations={
+                recipient_ip:e.target.recipient_ip.value
+            }
+            let response=await fetch(`http://${configs.recipient_ip}:80/api/ping/${configs.recipient_ip}`)
+            let parseRes=await response.json()
+            if(parseRes!=="pong"){
+                console.log(parseRes.error)
+            }else{
+                console.log(parseRes)
+                setConfigurations(configs)
+                window.localStorage.setItem("configurations",JSON.stringify(configs))
+            }
+        }catch(error:any){
+            let errorMessage=error.message==="Failed to fetch"?"Connect to a netork and try again!":error.message
+            setNotifications([{
+                priority:"not important",
+                message:errorMessage
+            }])
+            console.log(errorMessage)
         }
     }
 
@@ -720,14 +745,7 @@ export default function Home(props:Props){
 
                                                     <div>
                                                         <p className="font-semibold text-lg">Recipient Information</p>
-                                                        <form onSubmit={(e:any)=>{
-                                                            e.preventDefault()
-                                                            let configs:Configurations={
-                                                                recipient_ip:e.target.recipient_ip.value
-                                                            }
-                                                            setConfigurations(configs)
-                                                            window.localStorage.setItem("configurations",JSON.stringify(configs))
-                                                        }} className="flex flex-col gap-2 my-2">
+                                                        <form onSubmit={handlePing} className="flex flex-col gap-2 my-2">
                                                                 {configurations.recipient_ip.length===0?(
                                                                     <div className="grid grid-cols-4 gap-10">
                                                                         <label htmlFor="recipient_ip">Enter Recipient's IP</label>
@@ -745,7 +763,7 @@ export default function Home(props:Props){
                                                             </div>
                                                             {configurations.recipient_ip.length===0?(
                                                                 <button className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm bg-[var(--theme-yellow)]">
-                                                                    Save
+                                                                    Ping
                                                                 </button>
                                                             ):(
                                                                 <button type="button" onClick={()=>{
