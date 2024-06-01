@@ -13,7 +13,7 @@ import { GlobalContext } from "./context"
 
 function App() {
   let API_URL=`http://localhost:80`
-  let [ws,setWs]=useState(null)
+      let [ws,setWs]=useState<any>(null)
   let userPreference:UserPreference={
     backgroundImage:"default"
   }
@@ -53,11 +53,11 @@ function App() {
     };
   },[])
 
-  function sendMessage(){
-    if(ws){
-        ws.send("hello")
-    }
-  }
+  //function sendMessage(){
+    //if(ws){
+     //   ws.send("hello")
+    //}
+  //}
   return (
     <BrowserRouter>
         <GlobalContext.Provider value={{ws,API_URL}}> 

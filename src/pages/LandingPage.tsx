@@ -25,7 +25,7 @@ export default function LandingPage(props:Props){
                 <p className="font-semibold text-2xl text-center">Welcome to Anvel ! </p>
                 <div className="mt-4 lg:w-[40vw] md:w-[60vw] max-md:px-[10vw] text-[14px]">
                     <p>
-                        Anvel is a file sharing program. This program was developed to assist you to easy share your files to collegues on your local network. 
+                        Anvel is a file sharing program. This program was developed to assist you to share files with collegues on your local network. 
                     </p>
                     <div className="mt-8 w-full">
                         <div className="flex items-center justify-center gap-2">

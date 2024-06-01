@@ -1,3 +1,4 @@
+import { message } from "@tauri-apps/api/dialog";
 import { MdArrowBack, MdClose, MdContentCopy, MdDelete, MdEdit, MdFolder, MdInfoOutline, MdOpenInNew, MdSend, MdSettings } from "react-icons/md";
 import Footer from "../components/Footer";
 import SideNav from "../components/SideNav";
@@ -57,13 +58,14 @@ type Props={
     }
 }
 export default function Home(props:Props){
-    let { ws, API_URL }=useContext(GlobalContext)
+    let { API_URL }=useContext(GlobalContext)
     const navigate=useNavigate()
     let [name,setName]=useState("")
     let [counter,setCounter]=useState(0)
     let [isLoading,setIsLoading]=useState(true)
     let [loadingText,setLoadingText]=useState("Loading...")
     let [isLoadingNetInfo,setIsLoadingNetInfo]=useState(true)
+    let [isDisabled,setIsDisabled]=useState(false)
     let [infoContent,setInfoContent]=useState<Content>({
         name:"",
         root:"",
@@ -307,20 +309,26 @@ export default function Home(props:Props){
     async function handlePing(e:any){
         try{
             e.preventDefault()
+            setIsDisabled(true)
             let configs:Configurations={
                 recipient_ip:e.target.recipient_ip.value
             }
             let response=await fetch(`http://${configs.recipient_ip}:80/api/ping/${configs.recipient_ip}`)
             let parseRes=await response.json()
             if(parseRes!=="pong"){
+                await message(`${parseRes.error}`, { title: 'Error', type: 'error' });
                 console.log(parseRes.error)
+                setIsDisabled(false)
             }else{
                 console.log(parseRes)
                 setConfigurations(configs)
                 window.localStorage.setItem("configurations",JSON.stringify(configs))
+                setIsDisabled(false)
             }
         }catch(error:any){
-            let errorMessage=error.message==="Failed to fetch"?"Connect to a netork and try again!":error.message
+            setIsDisabled(false)
+            let errorMessage=error.message==="Failed to fetch"?`Cannot ping ${e.target.recipient_ip.value}`:error.message
+            await message(`${errorMessage}`, { title: 'Error', type: 'error' });
             setNotifications([{
                 priority:"not important",
                 message:errorMessage
@@ -630,8 +638,8 @@ export default function Home(props:Props){
                                                                     }else{
                                                                         openFile(`${API_URL}/api/open`,path)
                                                                     }
-                                                                }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-03)] dropdown_btn'>
-                                                                {content.metadata.is_file?(<img src={fileIcon} alt='file' className='w-[55px] h-[55px]'/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
+                                                                }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-blue-100 hover:bg-blue-50 dropdown_btn'>
+                                                                {content.metadata.is_file?(<img src={fileIcon} alt='file' className={fileIcon!==downloadURL?'w-[55px] h-[55px]':"w-[75px] h-[60px] object-cover"}/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
                                                                 <div className='flex justify-center'>
                                                                     {content.name.length<30?(
                                                                         <p className="w-fit">{content.name}</p>
@@ -710,6 +718,7 @@ export default function Home(props:Props){
                                 ):(
                                     <div  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
                                         <div className="ml-[200px] flex flex-col w-full gap-x-4 gap-y-12 px-[25px] py-[13px]">
+
                                             <div>
                                                 <p className="text-lg font-semibold mb-2">Network Information</p>
                                                 <div className="flex gap-6 flex-col">
@@ -743,7 +752,7 @@ export default function Home(props:Props){
                                                         </div>
                                                     </div>
 
-                                                    <div>
+                                                    {networkInformation.internal.length!==0?(<div>
                                                         <p className="font-semibold text-lg">Recipient Information</p>
                                                         <form onSubmit={handlePing} className="flex flex-col gap-2 my-2">
                                                                 {configurations.recipient_ip.length===0?(
@@ -762,7 +771,7 @@ export default function Home(props:Props){
                                                                 <input disabled id="both_folder_and_file" name="both_folder_and_file" checked type="checkbox" className="h-[20px] w-[20px] cursor-pointer rounded-md bg-transparent focus:outline-none checked:bg-violet-300 focus:ring-1 focus:ring-violet-300" />
                                                             </div>
                                                             {configurations.recipient_ip.length===0?(
-                                                                <button className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm bg-[var(--theme-yellow)]">
+                                                                <button disabled={isDisabled} className={!isDisabled?"py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm bg-[var(--theme-yellow)]":"py-1 px-[16px] cursor-wait bg-[#EDFFA1] border-none w-[100px] text-black rounded-sm"}>
                                                                     Ping
                                                                 </button>
                                                             ):(
@@ -775,7 +784,7 @@ export default function Home(props:Props){
                                                                 </button>
                                                             )}
                                                         </form>
-                                                    </div>
+                                                    </div>):""}
                                                 </div>
                                             </div>
                                             <div>
