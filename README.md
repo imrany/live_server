@@ -1,17 +1,4 @@
-<h1 align="center">Anvel</h1><br/>
-
-<p align="center">
-  <a href="#">
-    <img src="https://github.com/imrany/anvel/blob/main/public/favicon.svg" alt="Anvel's logo" height="140">
-  </a>
-</p>
-
-<p align="center">
-    __Anvel__ is a networking program for file sharing.
-</p>
-
-----
-
+Anvel is an open-source, cross platform program that lets people share files and folderson their network.
 #### Get all latest version here
 
 | __Anvel versions__ | __Status__ | __Release Date__ | __Releases__ |
