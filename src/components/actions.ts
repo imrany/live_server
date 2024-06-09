@@ -19,6 +19,16 @@ export function createWindow(url:string, label:string){
     })
 }
 
+export function browserSupportedFiles(extension:string){
+    let $extension=extension.toUpperCase();
+    let supportedFileExts:string[]=["MP4","PDF","JPG","JPEG","SVG","GIF","PNG","JSON","TXT","CSV","MP3","WEBP","HTML","CSS","JS","PHP","XML"]
+    if(supportedFileExts.includes($extension)){
+        return true
+    }else{
+        return false
+    }
+}
+
 export function openDialog(dialog_id:string){
     let dialog_bg=document.getElementById(dialog_id);
     dialog_bg?.classList.add("ease-in-out");

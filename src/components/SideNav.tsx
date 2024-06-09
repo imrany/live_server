@@ -1,6 +1,6 @@
 // @flow strict
 import { MdEdit, MdFileOpen, MdFolder, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
-import { openDialog, createWindow } from "./actions"
+import { openDialog, createWindow, openFile, browserSupportedFiles } from "./actions"
 import { ErrorBody, Folder } from "../types/definitions"
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context"
@@ -82,7 +82,7 @@ function SideNav(props:Props) {
         			                }
 
                                     let label=content.name
-                                    if(label.includes(" ")){
+                                    if(label.includes(" ")||label.includes(".")){
                                         label=label.replace(/ /g,"_")
                                         if(label.includes(".")){
                                             label=label.replace(/./g,"_")
@@ -96,8 +96,11 @@ function SideNav(props:Props) {
                                                         localStorage.setItem("path",path)
                                                         props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
-                                                        createWindow(`file://${path}`,label)
-                                                        //openFile(`${API_URL}/api/open`,path)
+                                                        if(browserSupportedFiles(content.metadata.file_extension)){
+                                                            createWindow(`file://${path}`,label)
+                                                        }else{
+                                                            openFile(`${API_URL}/api/open`,path)
+                                                        }
                                                     }
                                                 }} className='flex w-[195px] items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>
@@ -144,7 +147,7 @@ function SideNav(props:Props) {
                                     }
 
                                     let label=content.name
-                                    if(label.includes(" ")){
+                                    if(label.includes(" ")||label.includes(".")){
                                         label=label.replace(/ /g,"_")
                                         if(label.includes(".")){
                                             label=label.replace(/./g,"_")
@@ -158,8 +161,11 @@ function SideNav(props:Props) {
                                                         localStorage.setItem("path",path)
                                                         props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
-                                                        createWindow(`file://${path}`,label)
-                                                        //openFile(`${API_URL}/api/open`,content.path)
+                                                        if(browserSupportedFiles(content.metadata.file_extension)){
+                                                            createWindow(`file://${path}`,label)
+                                                        }else{
+                                                            openFile(`${API_URL}/api/open`,path)
+                                                        }
                                                     }
                                                 }} className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFileOpen className="w-[20px] h-[20px] pr-[3px]"/>

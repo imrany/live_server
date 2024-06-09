@@ -6,7 +6,7 @@ import TopNav from "../components/TopNav";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context";
 import { ErrorBody, Folder, Configurations , Content, Notifications, ChooseBackground, NetworkInformation, SendFileInfo } from "../types/definitions"
-import { openFile, createWindow } from "../components/actions";
+import { openFile, createWindow, browserSupportedFiles } from "../components/actions";
 import { useNavigate } from "react-router-dom";
 import unknownFile from "../assets/icons/filetype/application-x-zerosize.svg";
 import audioMp3 from "../assets/icons/filetype/audio-mp3.svg";
@@ -627,7 +627,7 @@ export default function Home(props:Props){
                                                     }	
 
                                                     let label=content.name
-                                                    if(label.includes(" ")){
+                                                    if(label.includes(" ")||label.includes(".")){
                                                         label=label.replace(/ /g,"_")
                                                         if(label.includes(".")){
                                                             label=label.replace(/./g,"_")
@@ -645,8 +645,11 @@ export default function Home(props:Props){
                                                                         localStorage.setItem("path",path)
                                                                         open(`${API_URL}/api/directory_content`)
                                                                     }else{
-                                                                        createWindow(`file://${path}`,label)
-                                                                        //openFile(`${API_URL}/api/open`,path)
+                                                                        if(browserSupportedFiles(content.metadata.file_extension)){
+                                                                            createWindow(`file://${path}`,label)
+                                                                        }else{
+                                                                            openFile(`${API_URL}/api/open`,path)
+                                                                        }
                                                                     }
                                                                 }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-05)] hover:bg-[var(--primary-05)] dropdown_btn'>
                                                                 {content.metadata.is_file?(<img src={fileIcon} alt='file' className={fileIcon!==downloadURL?'w-[55px] h-[55px]':"w-[75px] h-[60px] object-cover"}/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
@@ -662,8 +665,11 @@ export default function Home(props:Props){
                                                                 <div>
                                                                     <div onClick={()=>{
                                                                         if(content.metadata.is_file){
-                                                                            createWindow(`file://${path}`,label)
-                                                                            //openFile(`${API_URL}/api/open`,path)
+                                                                            if(browserSupportedFiles(content.metadata.file_extension)){
+                                                                                createWindow(`file://${path}`,label)
+                                                                            }else{
+                                                                                openFile(`${API_URL}/api/open`,path)
+                                                                            }
                                                                         }else{
                                                                             localStorage.setItem("path",path)
                                                                             open(`${API_URL}/api/directory_content`)
@@ -672,7 +678,7 @@ export default function Home(props:Props){
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
                                                                         <p>Open</p>
                                                                     </div>
-                                                                    {content.metadata.is_file?(<div onClick={()=>{
+                                                                    {content.metadata.is_file&&browserSupportedFiles(content.metadata.file_extension)?(<div onClick={()=>{
                                                                         openFile(`${API_URL}/api/open`,path)
                                                                     }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
