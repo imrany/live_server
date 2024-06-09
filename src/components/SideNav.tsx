@@ -97,7 +97,7 @@ function SideNav(props:Props) {
                                                         props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
                                                         if(browserSupportedFiles(content.metadata.file_extension)){
-                                                            createWindow(`file://${path}`,label)
+                                                            path.includes("#")?path=path.replace(/#/g,"%23"):path;                                                                            createWindow(`file://${path}`,label)
                                                         }else{
                                                             openFile(`${API_URL}/api/open`,path)
                                                         }
@@ -162,6 +162,7 @@ function SideNav(props:Props) {
                                                         props.data.open(`${API_URL}/api/directory_content`)
                                                     }else{
                                                         if(browserSupportedFiles(content.metadata.file_extension)){
+                                                            path.includes("#")?path=path.replace(/#/g,"%23"):path;
                                                             createWindow(`file://${path}`,label)
                                                         }else{
                                                             openFile(`${API_URL}/api/open`,path)

@@ -646,6 +646,7 @@ export default function Home(props:Props){
                                                                         open(`${API_URL}/api/directory_content`)
                                                                     }else{
                                                                         if(browserSupportedFiles(content.metadata.file_extension)){
+                                                                            path.includes("#")?path=path.replace(/#/g,"%23"):path;
                                                                             createWindow(`file://${path}`,label)
                                                                         }else{
                                                                             openFile(`${API_URL}/api/open`,path)
@@ -666,6 +667,7 @@ export default function Home(props:Props){
                                                                     <div onClick={()=>{
                                                                         if(content.metadata.is_file){
                                                                             if(browserSupportedFiles(content.metadata.file_extension)){
+                                                                                path.includes("#")?path=path.replace(/#/g,"%23"):path;
                                                                                 createWindow(`file://${path}`,label)
                                                                             }else{
                                                                                 openFile(`${API_URL}/api/open`,path)
