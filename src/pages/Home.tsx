@@ -6,7 +6,7 @@ import TopNav from "../components/TopNav";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context";
 import { ErrorBody, Folder, Configurations , Content, Notifications, ChooseBackground, NetworkInformation, SendFileInfo } from "../types/definitions"
-import { openFile } from "../components/actions";
+import { openFile, createWindow } from "../components/actions";
 import { useNavigate } from "react-router-dom";
 import unknownFile from "../assets/icons/filetype/application-x-zerosize.svg";
 import audioMp3 from "../assets/icons/filetype/audio-mp3.svg";
@@ -413,7 +413,7 @@ export default function Home(props:Props){
                                             </div>
                                         ):(
                                             <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
-                                                {folders.contents.map((content)=>{
+                                                {folders.contents.map((content,index)=>{
                                                     let fileIcon
                                                     let downloadURL=`${API_URL}/api/download/${content.path}`
                                                     switch (content.metadata.file_extension) {
@@ -636,7 +636,8 @@ export default function Home(props:Props){
                                                                         localStorage.setItem("path",path)
                                                                         open(`${API_URL}/api/directory_content`)
                                                                     }else{
-                                                                        openFile(`${API_URL}/api/open`,path)
+                                                                        createWindow(downloadURL,`new_window_${index}`)
+                                                                        //openFile(`${API_URL}/api/open`,path)
                                                                     }
                                                                 }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-05)] hover:bg-[var(--primary-05)] dropdown_btn'>
                                                                 {content.metadata.is_file?(<img src={fileIcon} alt='file' className={fileIcon!==downloadURL?'w-[55px] h-[55px]':"w-[75px] h-[60px] object-cover"}/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
@@ -652,7 +653,8 @@ export default function Home(props:Props){
                                                                 <div>
                                                                     <div onClick={()=>{
                                                                         if(content.metadata.is_file){
-                                                                            openFile(`${API_URL}/api/open`,path)
+                                                                            createWindow(downloadURL,`new_window_${index}`)
+                                                                            //openFile(`${API_URL}/api/open`,path)
                                                                         }else{
                                                                             localStorage.setItem("path",path)
                                                                             open(`${API_URL}/api/directory_content`)
