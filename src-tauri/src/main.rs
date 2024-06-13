@@ -1,6 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::Manager;
+use tauri::{Manager, Window};
 use dirs;
 use actix_web::{
     HttpServer,
@@ -106,10 +106,10 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-async fn open_window(app: tauri::AppHandle, file_path:&str, label:&str, title:&str)-> Result<String,String>{
+async fn open_window(app: tauri::AppHandle, file_path:&str, label:&str, title:&str, window:Window)-> Result<String,String>{
     //let file_path = "src-tauri/src/Views/settings.html";
     
-    let window=tauri::WindowBuilder::new(
+    let open_window=tauri::WindowBuilder::new(
         &app,
         label, /* the unique window label */
         tauri::WindowUrl::App(file_path.into()),
@@ -117,33 +117,40 @@ async fn open_window(app: tauri::AppHandle, file_path:&str, label:&str, title:&s
     .title(title)
     .build();
 
-    match window {
+    match open_window {
         Ok(_)=>{
-            "Window open successful".to_string()
+            Ok("Window open successful".to_string())
         },
-        Err(e)=>{
-            match v.get_window(label).unwrap().close() {
-                Ok(_)=>{
-                    match tauri::WindowBuilder::new(
-                        &app,
-                        label, /* the unique window label */
-                        tauri::WindowUrl::App(file_path.into()),
-                    )
-                    .title(title)
-                    .build() {
-                        Ok(_)=>"New window opened successfully".to_string(),
-                        Err(e)=>format!("{}",e)
-                    };
+        Err(ref _e)=>{
+            match window.get_window(label){
+                Some(v)=>{
+                    match v.close(){
+                        Ok(_)=>{
+                            std::thread::sleep(std::time::Duration::from_millis(200));
+                            match tauri::WindowBuilder::new(
+                                &app,
+                                label, /* the unique window label */
+                                tauri::WindowUrl::App(file_path.into()),
+                            )
+                            .title(title)
+                            .build() {
+                                Ok(_)=>Ok("New window opened successfully".to_string()),
+                                Err(e)=>Err(format!("{}",e))
+                            }
 
-                    format!("Closing window with label: {}", label)
+                            //Ok(format!("Closing window with label: {}", label))
+                        },
+                        Err(e)=>Err(format!("{}",e))
+                    }
                 },
-                Err(e)=>format!("{}",e)
-            };
-            format!("{}",e)
+                None=>Err(format!("No open window with label: {}",label))
+            }
+            
+            //Err(format!("{}",e))
         }
-    };
+    }
 
-    Ok("window function done".to_string())
+    //Ok("window function done".to_string())
 }
 
 fn main() {

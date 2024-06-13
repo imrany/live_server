@@ -7,9 +7,8 @@ export async function createWindow(filePath:string, label:string, title:string){
         let open=await invoke("open_window", { filePath, label, title })
         console.log(open)
     }catch(error:any){
-        let errorMessage=error.message
         console.log(error)
-        await message(errorMessage,{title:`Error`,type:"error"})
+        await message(error,{title:`Error`,type:"error"})
     }
 }
 
