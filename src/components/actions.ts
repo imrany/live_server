@@ -1,4 +1,3 @@
-import { WebviewWindow } from '@tauri-apps/api/window'
 import { invoke } from "@tauri-apps/api/tauri";
 import { message } from "@tauri-apps/api/dialog";
 
