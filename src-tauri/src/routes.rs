@@ -50,6 +50,8 @@ struct DirectoryObject {
     path:path::PathBuf,
     metadata:FileMeta
 }
+use dirs;
+
 #[derive(Serialize,Deserialize, Debug)]
 struct FileMeta{
     is_file:bool,
@@ -97,10 +99,34 @@ pub async fn directory_content(state: web::Data<AppState>, path: web::Json<RootP
     let path_dir=&path.root;
     let shared_dir=&state.shared_dir;
     let home_dir=&state.home_dir;
+    let download_dir=&state.download_dir;
+    let audio_dir=&path::PathBuf::from(dirs::audio_dir().unwrap().display().to_string());
+    let desktop_dir=&path::PathBuf::from(dirs::desktop_dir().unwrap().display().to_string());
+    let picture_dir=&path::PathBuf::from(dirs::picture_dir().unwrap().display().to_string());
+    let video_dir=&path::PathBuf::from(dirs::video_dir().unwrap().display().to_string());
+    let document_dir=&path::PathBuf::from(dirs::document_dir().unwrap().display().to_string());
 
     let directory_path = match path_dir.to_str().unwrap() {
         "root" => {
             root
+        },
+        "MUSIC"=>{
+            audio_dir  
+        },
+        "DESKTOP"=>{
+            desktop_dir
+        },
+        "PICTURES"=>{
+            picture_dir
+        },
+        "VIDEOS"=>{
+            video_dir
+        },
+        "DOWNLOADS"=>{
+            download_dir
+        },
+        "DOCUMENTS"=>{
+            document_dir
         },
         "home" =>{
             home_dir

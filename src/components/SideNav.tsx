@@ -17,6 +17,7 @@ type Props = {
 function SideNav(props:Props) {
     let { API_URL }=useContext(GlobalContext)
     let [searchView,setSearchView]=useState(false)
+    let [moreStuff, setMoreStuff]=useState(false)
     let [searchError,setSearchError]=useState(<></>)
     let [searchResults,setSearchResults]=useState<Folder>({
         contents:[]
@@ -43,6 +44,28 @@ function SideNav(props:Props) {
         })
         setSearchResults(results)
     }
+
+    let data=[                                
+        {
+            name:"Desktop",
+        },
+        {
+            name:"Documents",
+        },
+        {
+            name:"Downloads",
+        },
+        {
+            name:"Music"
+        },
+        {
+            name:"Pictures"
+        },
+        {
+            name:"Videos"
+        }
+    ]
+
     return (
         <div id="sidebar" className="overflow-hidden bg-[var(--primary-02)] border-dotted border-[#3c3c3c]/50 border-r-[1px] h-[100vh] fixed pb-[12px] bottom-[18px] left-0 w-[200px] top-[35px] text-[13px]">
             <div className="flex flex-col mb-3">
@@ -69,14 +92,23 @@ function SideNav(props:Props) {
                 {searchView?"":(
                     <div className="resize-y">
                         <div className="flex items-center text-[11px] uppercase px-[8px] h-[35px]">
-                            <p className="pl-[12px]">EXPLORER</p>
-                            <MdMoreHoriz className="w-[30px] ml-auto h-[25px] cursor-pointer p-[4px]"/>
+                            <p className="pl-[12px]">{!moreStuff?"EXPLORER":"QUICK ACCESS"}</p>
+                            <button onClick={()=>{
+                                if(!moreStuff){
+                                    setMoreStuff(true)
+                                }else{
+                                    setMoreStuff(false)
+                                }
+                            }} className="w-[30px] ml-auto h-[25px] cursor-pointer p-[4px]">
+                                <MdMoreHoriz className="text-lg"/>
+                            </button>
                         </div>
                         <div id="folders" className="sidebar_folders overflow-y-auto pb-[33px] pt-1 h-screen">
+                            {!moreStuff?(
                             <div className="flex flex-col">
                                 {props.data.folders?props.data.folders.contents.map(content=>{
 			    	                let path=content.path
-		         	                if(path.includes("\\")){
+                                    if(path.includes("\\")){
 			                            // Replace backslashes with forward slashes
             			                path = path.replace(/\\/g, "/")
         			                }
@@ -128,6 +160,24 @@ function SideNav(props:Props) {
                                     </div>
                                 )}
                             </div>
+                            ):(
+                                <div className="flex flex-col">
+                                    {
+                                        data.map(i=>{
+                                            return(<div className="flex-grow">
+                                                <button onClick={()=>{
+                                                    localStorage.setItem("path",i.name.toUpperCase())
+                                                    props.data.open(`${API_URL}/api/directory_content`)
+                                                }} className='flex w-[195px] items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
+                                                    <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
+                                                    <p className='text-[11px] uppercase'>{i.name}</p>
+                                                </button>
+                                            </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            )}   
                         </div>
                     </div>
                 )}

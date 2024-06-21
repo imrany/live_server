@@ -1,6 +1,6 @@
 [package]
 name = "anvel"
-version = "0.2.8"
+version = "0.2.9"
 edition = "2021"
 description = "Anvel is a networking program for file sharing.."
 license = "MIT License"
