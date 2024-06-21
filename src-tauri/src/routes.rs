@@ -110,22 +110,22 @@ pub async fn directory_content(state: web::Data<AppState>, path: web::Json<RootP
         "root" => {
             root
         },
-        "MUSIC"=>{
+        "Music"=>{
             audio_dir  
         },
-        "DESKTOP"=>{
+        "Desktop"=>{
             desktop_dir
         },
-        "PICTURES"=>{
+        "Pictures"=>{
             picture_dir
         },
-        "VIDEOS"=>{
+        "Videos"=>{
             video_dir
         },
-        "DOWNLOADS"=>{
+        "Downloads"=>{
             download_dir
         },
-        "DOCUMENTS"=>{
+        "Documents"=>{
             document_dir
         },
         "home" =>{

@@ -17,8 +17,8 @@ import DOC from "../assets/icons/filetype/application-x-kword.svg"
 import TXT from "../assets/icons/filetype/application-text.svg"
 import ISOIMAGE from "../assets/icons/filetype/application-x-raw-disk-image.svg"
 import PPTX from "../assets/icons/filetype/application-vnd.ms-powerpoint.svg"
-//import MKV from "../assets/icons/filetype/video-x-matroska.svg"
-//import AVI from "../assets/icons/filetype/video-x-wmv.svg"
+import MKV from "../assets/icons/filetype/video-x-matroska.svg"
+import AVI from "../assets/icons/filetype/video-x-wmv.svg"
 import CSV from "../assets/icons/filetype/text-csv.svg"
 import XLSX from "../assets/icons/filetype/libreoffice-oasis-spreadsheet.svg"
 import PSD from "../assets/icons/filetype/image-vnd.adobe.photoshop.svg"
@@ -598,16 +598,13 @@ export default function Home(props:Props){
                                                             fileIcon=ZIP
                                                             break;
                                                         case "mp4":
-                                                            //fileIcon=videoMp4
-                                                            fileIcon=downloadURL
+                                                            fileIcon=videoMp4
                                                             break;
                                                         case "mkv":
-                                                            //fileIcon=MKV
-                                                            fileIcon=downloadURL
+                                                            fileIcon=MKV
                                                             break;
                                                         case "avi":
-                                                            //fileIcon=AVI
-                                                            fileIcon=downloadURL
+                                                            fileIcon=AVI
                                                             break;
                                                         case "pptx":
                                                             fileIcon=PPTX
@@ -628,8 +625,6 @@ export default function Home(props:Props){
                                                         // Replace backslashes with forward slashes
                                                         path = path.replace(/\\/g, "/")
                                                     }	
-
-                                                    let video_file=["MP4","MKV", "AVI"];
 
                                                     let unique_media=["MP3","MP4"];
                                                     let label=unique_media.includes(content.metadata.file_extension.toUpperCase())?content.metadata.file_extension:content.name
@@ -659,12 +654,7 @@ export default function Home(props:Props){
                                                                         }
                                                                     }
                                                                 }}  className='flex flex-col items-center justify-center text-[12px] max-w-[150px] focus:bg-[var(--primary-05)] hover:bg-[var(--primary-05)] dropdown_btn'>
-                                                                {content.metadata.is_file?
-                                                                    video_file.includes(content.metadata.file_extension.toUpperCase())?(
-                                                                        <video src={fileIcon} controls={false} autoPlay={false} className={`w-[120px] h-[90px]`} style={{background: `url('${videoMp4}') center no-repeat`}}>
-                                                                            <source src={fileIcon} type={content.metadata.file_extension}/>
-                                                                        </video>
-                                                                    ):(<img src={fileIcon} alt='file' className={fileIcon!==downloadURL?'w-[55px] h-[55px]':"w-[75px] h-[60px] object-cover"}/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
+                                                                {content.metadata.is_file?(<img src={fileIcon} alt='file' className={fileIcon!==downloadURL?'w-[55px] h-[55px]':"w-[75px] h-[60px] object-cover"}/>):(<img src={FolderImage} alt='folder' className='w-[65px] h-[65px]'/>)}
                                                                 <div className='flex justify-center'>
                                                                     {content.name.length<30?(
                                                                         <p className="w-fit">{content.name}</p>
