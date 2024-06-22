@@ -1,5 +1,5 @@
 // @flow strict
-import { MdEdit, MdFileOpen, MdFolder, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
+import { MdEdit, MdFileOpen, MdFolder, MdAdd, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
 import { openDialog, createWindow, openFile, browserSupportedFiles } from "./actions"
 import { ErrorBody, Folder } from "../types/definitions"
 import { useState, useContext } from "react";
@@ -76,17 +76,21 @@ function SideNav(props:Props) {
                         })
                         setSearchError(<></>)
                         setSearchView(false)
-                    }} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer  p-[4px]">
+                    }} title="File explorer" className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer  p-[4px]">
                         <MdFileOpen className="w-[18px] h-[18px]"/>
                     </button>
-                    <button onClick={()=>setSearchView(true)} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
+                    <button title="Search for a folder or file" onClick={()=>setSearchView(true)} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
                         <MdSearch className="w-[18px] h-[18px]"/>
                     </button>
-                    <button onClick={()=>{
+                    <button title="Refresh tab" onClick={()=>{
                         props.data.showSettings===false?props.data.open(`${API_URL}/api/directory_content`):props.data.getIPs(`${API_URL}/api/get_ip_address`)
                     }} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
                         <MdRefresh className="w-[18px] h-[18px]"/>
                     </button>
+                    <button title="Open a new tab" onClick={()=>{}} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
+                        <MdAdd className="w-[18px] h-[18px]"/>
+                    </button>
+
                 </div>
                 {/* folders */}
                 {searchView?"":(

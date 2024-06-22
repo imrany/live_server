@@ -759,7 +759,7 @@ export default function Home(props:Props){
                                                                             </div>
                                                                             <button onClick={()=>{
                                                                                 getIPs(`${API_URL}/api/get_ip_address`)
-                                                                            }} className="flex items-center justify-center h-[30px] w-[120px] text-[13px] bg-[var(--primary-02)] border-none" style={props.data.backgroundImage!=="default"?{color:"black"}:{}}>Try again</button>
+                                                                            }} className="flex items-center justify-center h-[30px] w-[120px] text-[13px] bg-[var(--primary-02)] border-none" style={{color:"var(--primary-04"}} >Try again</button>
 
                                                                         </div>
                                                                     ):(
@@ -826,7 +826,7 @@ export default function Home(props:Props){
                                                 <p className="font-semibold text-lg mb-2">User Preference</p>
                                                 <div className="flex flex-col">
                                                     <p>Background</p>
-                                                    <select style={props.data.backgroundImage!=="default"?{color:"black"}:{}} className="mt-2 active:outline-none focus:outline-none mb-4 w-[250px] border-[1px] p-[6px]" onChange={(e)=>setBackgroundOption(e.target.value)}>
+                                                    <select style={{color:"var(--primary-04"}} className="mt-2 active:outline-none focus:outline-none mb-4 w-[250px] border-[1px] p-[6px]" onChange={(e)=>setBackgroundOption(e.target.value)}>
                                                         <option value="Picture">Picture</option>
                                                         <option value="Solid color">Solid color</option>
                                                     </select>
@@ -852,15 +852,15 @@ export default function Home(props:Props){
                                                         <>
                                                             <p>Choose your background color</p>
                                                             <div className="grid grid-cols-8 w-fit max-sm:grid-cols-1 gap-1 my-2">
-                                                                <button onClick={()=>props.data.changeBackground("default")} className="bg-white flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("default")} className="bg-[var(--primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("purple-primary-01")} className="bg-purple-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("purple-primary-01")} className="bg-[var(--purple-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("orange-primary-01")} className="bg-orange-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("orange-primary-01")} className="bg-[var(--orange-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("red-primary-01")} className="bg-red-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("red-primary-01")} className="bg-[var(--red-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("pink-primary-01")} className="bg-pink-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("pink-primary-01")} className="bg-[var(--pink-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
 
                                                             </div>
