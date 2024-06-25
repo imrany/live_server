@@ -23,7 +23,7 @@
   --primary-01:light-dark(#fff,#252525);
   --primary-02:light-dark(#f2f2f2,#151515);
   --primary-03:light-dark(#f3f3f3,#252525);
-  --primary-04:light-dark(black,white);
+  --primary-04:light-dark(#252525,white);
   --primary-05:light-dark(#c2dcef4d,#3c3c3c);
   --primary-06:light-dark(#f2f2f2,#252525);
 
@@ -36,10 +36,10 @@
   --yellow-primary-03:#EDFFA1;
 
   /*Color themes*/
-  --purple-primary-01:#9333ea;
-  --orange-primary-01:#ea580c;
-  --red-primary-01:#dc2626;
-  --pink-primary-01:#db2777;
+  --purple-primary-01:#faf6ff;
+  --orange-primary-01:#f9f4f0;
+  --red-primary-01:#f7ecec;
+  --pink-primary-01:#f5ecf0;
 
 }
 

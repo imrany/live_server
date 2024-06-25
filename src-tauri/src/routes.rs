@@ -198,6 +198,31 @@ pub async fn download(req: HttpRequest) -> Result<NamedFile> {
 
 #[get("/ping/{sender_ip}")]
 pub async fn ping(sender_ip: web::Path<String>)->HttpResponse{
+    let resp=Client::new()
+        .get(format!("http://{sender_ip}:80/api/pong/{sender_ip}"))
+        .send()
+        .await;
+    match resp {
+        Ok(res) =>{
+            if res.status().is_success() {
+                let res_json:String=res.json().await.unwrap();
+                return HttpResponse::Ok().json(res_json);
+            } else {
+                let res_text=format!("Failed to ping. Status code: {}",res.status());
+                println!("{res_text}");
+                return HttpResponse::InternalServerError().json(res_text);
+            }
+        }, 
+        Err(e) => {
+            let res_text=format!("{e}");
+            println!("{res_text}");
+            return HttpResponse::InternalServerError().json(res_text);
+        }
+    }
+}
+
+#[get("/pong/{sender_ip}")]
+pub async fn pong(sender_ip: web::Path<String>)->HttpResponse{
     Notification::new()
         .summary("Anvel - Ping alert")
         .body(format!("Device '{}' can now send you files.",&sender_ip.as_str()).as_str())

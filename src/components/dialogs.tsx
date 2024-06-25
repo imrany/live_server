@@ -97,7 +97,7 @@ export function OpenFolderDialog(){
                             <label htmlFor="path" className="font-medium text-base text-[var(--primary-04)]">Enter or paste the folder's path</label>
                             <div className="flex gap-2 mt-2">
                                 <input id="path" name="path" className="px-2 py-1 w-full rounded-sm text-black focus:border-none focus:outline-violet-300 border-violet-300 border-[1px] focus:ring-1 focus:ring-violet-300" type="text" placeholder="C:/.../Downloads" required/>
-                                <button className="py-1 px-[16px] hover:bg-[#EDFFA1] border-none w-[100px] text-[#1D1D1D] rounded-sm bg-[var(--theme-yellow)]">
+                                <button className="py-1 px-[16px] border-none w-[100px] text-[#1D1D1D] rounded-sm bg-[var(--yellow-primary-01)] active:bg-[var(--yellow-primary-02)]">
                                     Open
                                 </button>
                             </div>

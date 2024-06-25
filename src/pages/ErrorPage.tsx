@@ -5,7 +5,7 @@ import { ErrorBody } from "../types/definitions";
 function NotFound() {
     let navigate=useNavigate()
     let [resolveBtn,setResolveBtn]=useState(
-        <button onClick={()=>window.location.reload()} className="mr-[12px] py-[4px] px-[16px] hover:bg-[#EDFFA1] border-none font-semibold h-[28px] w-[119px] text-[13px] text-[#1D1D1D] rounded-sm bg-[#EDFFA5]">
+        <button onClick={()=>window.location.href="/"} className="mr-[12px] py-[4px] px-[16px] hover:bg-[#EDFFA1] border-none font-semibold h-[28px] w-[119px] text-[13px] text-[#1D1D1D] rounded-sm bg-[#EDFFA5]">
             Refresh page
         </button>
     )

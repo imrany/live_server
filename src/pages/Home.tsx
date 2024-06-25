@@ -378,7 +378,7 @@ export default function Home(props:Props){
                                             </div>
                                         )}
 
-                                        <div onClick={()=>handleCloseSettings()} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn`)} className={showSettings===true?"bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center":"bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center"}>
+                                        <div onClick={()=>handleCloseSettings()} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn`)} className={showSettings===true?"bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center":props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center`}>
                                             <MdFolder className="w-[18px] h-[18px] mr-[5px]"/>
                                             <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{name}</p>
                                             <MdClose id="folder_close_btn" className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
@@ -388,7 +388,7 @@ export default function Home(props:Props){
                                         </div>
 
                                         {showSettingsTab?(
-                                            <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-02)] border-dotted border-r-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":"bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center"}>
+                                            <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-02)] border-dotted border-r-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`}>
                                                 <div className="flex pl-[10px]" onClick={()=>{
                                                     setSettingsHeader("Settings - Anvel")
                                                     setShowSettings(true)
@@ -407,10 +407,10 @@ export default function Home(props:Props){
                                     </div>
                                 </div>
                                 {!showSettings?(
-                                    <div className="w-full flex flex-wrap mt-[35px]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} id="folder_view_body">
+                                    <div className="w-full flex flex-wrap mt-[35px]"  style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}} id="folder_view_body">
                                         {folders.contents.length===0?(
                                             <div className="ml-[200px] w-full px-[25px] py-[13px]">
-                                                <p className="text-[13px] text-center text-[var(--primary-04)]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}} >This folder is empty</p>
+                                                <p className="text-[13px] text-center text-[var(--primary-04)]" style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}}>This folder is empty</p>
                                             </div>
                                         ):(
                                             <div id="test" className="ml-[200px] grid max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full gap-4 px-[25px] py-[13px]">
@@ -732,7 +732,7 @@ export default function Home(props:Props){
                                         )}
                                     </div>
                                 ):(
-                                    <div  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
+                                    <div style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}} className="w-full flex flex-wrap mt-[35px] text-[var(--primary-04)]" id="settings_view">
                                         <div className="ml-[200px] flex flex-col w-full gap-x-4 gap-y-12 px-[25px] pt-[13px] pb-[50px]">
 
                                             <div>
@@ -766,17 +766,17 @@ export default function Home(props:Props){
                                                                         <>
                                                                             <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Internet Protocol (IP)</p>
-                                                                                <p  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="text-[var(--primary-04)]">{networkInformation.internal}</p>
+                                                                                <p style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}} className="text-[var(--primary-04)]">{networkInformation.internal}</p>
                                                                             </div>
                                                                             {networkInformation.external.includes("No internet")?"":(
                                                                                 <div className="grid grid-cols-4 gap-10">
                                                                                     <p>External IP</p>
-                                                                                    <p  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="text-[var(--primary-04)]">{networkInformation.external}</p>
+                                                                                    <p style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}} className="text-[var(--primary-04)]">{networkInformation.external}</p>
                                                                                 </div>
                                                                             )}
                                                                            <div className="grid grid-cols-4 gap-10">
                                                                                 <p>Status</p>
-                                                                                <p  style={props.data.backgroundImage!=="default"?{color:"white"}:{}} className="text-[var(--primary-04)]">{networkInformation.external.includes("No internet")?"Offline":"Online"}</p>
+                                                                                <p style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}} className="text-[var(--primary-04)]">{networkInformation.external.includes("No internet")?"Offline":"Online"}</p>
                                                                             </div>
                                                                         </>
                                                                     )}
@@ -797,7 +797,7 @@ export default function Home(props:Props){
                                                                 ):(
                                                                     <div className="grid grid-cols-4 gap-10">
                                                                         <p>Recipient's IP</p>
-                                                                        <p className="text-[var(--primary-04)]" style={props.data.backgroundImage!=="default"?{color:"white"}:{}}>{configurations.recipient_ip}</p>
+                                                                        <p className="text-[var(--primary-04)]" style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}}>{configurations.recipient_ip}</p>
                                                                     </div>
                                                                 )}
                                                             <div className="grid grid-cols-4 gap-10">
@@ -835,7 +835,7 @@ export default function Home(props:Props){
                                                             <p>Choose your picture</p>
                                                             <div className="flex max-sm:flex-col gap-2 my-2">
                                                                 <button onClick={()=>props.data.changeBackground("default")} style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)"}} className="bg-[var(--primary-01)] flex justify-center items-center rounded-md h-[200px] w-[240px]">
-                                                                    <p  style={props.data.backgroundImage!=="default"?{color:"black"}:{}} className="text-base">Default</p>
+                                                                    <p className="text-base text-[var(--primary-04)]">Default</p>
                                                                 </button>
                                                                 <div className="flex max-sm:flex-col gap-2">
                                                                     {chooseBackground.map((choice)=>{
@@ -854,13 +854,13 @@ export default function Home(props:Props){
                                                             <div className="grid grid-cols-8 w-fit max-sm:grid-cols-1 gap-1 my-2">
                                                                 <button onClick={()=>props.data.changeBackground("default")} className="bg-[var(--primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("purple-primary-01")} className="bg-[var(--purple-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("purple-primary-01")} className="bg-purple-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("orange-primary-01")} className="bg-[var(--orange-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("orange-primary-01")} className="bg-orange-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("red-primary-01")} className="bg-[var(--red-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("red-primary-01")} className="bg-red-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
-                                                                <button onClick={()=>props.data.changeBackground("pink-primary-01")} className="bg-[var(--pink-primary-01)] flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
+                                                                <button onClick={()=>props.data.changeBackground("pink-primary-01")} className="bg-pink-600 flex justify-center items-center h-[40px] w-[40px]" style={{boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.1)"}}>
                                                                 </button>
 
                                                             </div>
