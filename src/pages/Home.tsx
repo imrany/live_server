@@ -314,7 +314,7 @@ export default function Home(props:Props){
             let configs:Configurations={
                 recipient_ip:e.target.recipient_ip.value
             }
-            let response=await fetch(`http://${configs.recipient_ip}:80/api/ping/${configs.recipient_ip}`)
+            let response=await fetch(`${API_URL}/api/ping/${configs.recipient_ip}`)
             let parseRes=await response.json()
             if(parseRes!=="pong"){
                 await message(`${parseRes.error}`, { title: 'Error', type: 'error' });

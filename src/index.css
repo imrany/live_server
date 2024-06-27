@@ -20,7 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
   color-scheme: light dark;
 
-  --primary-01:light-dark(#fff,#252525);
+  --primary-01:light-dark(#fff,#1d1d1d);
   --primary-02:light-dark(#f2f2f2,#151515);
   --primary-03:light-dark(#f3f3f3,#252525);
   --primary-04:light-dark(#252525,white);
@@ -36,10 +36,10 @@
   --yellow-primary-03:#EDFFA1;
 
   /*Color themes*/
-  --purple-primary-01:#faf6ff;
-  --orange-primary-01:#f9f4f0;
-  --red-primary-01:#f7ecec;
-  --pink-primary-01:#f5ecf0;
+  --purple-primary-01:light-dark(#faf6ff,#4a0589);
+  --orange-primary-01:light-dark(#f9f4f0,#c54b0c);
+  --red-primary-01:light-dark(#f7ecec,#b90909);
+  --pink-primary-01:light-dark(#f5ecf0,#a7094f);
 
 }
 
