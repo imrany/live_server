@@ -689,6 +689,13 @@ export default function Home(props:Props){
                                                                         <p>Open with default app</p>
                                                                     </div>):""}
 
+                                                                    {!content.metadata.is_file?(<div onClick={()=>{
+                                                                        openFile(`${API_URL}/api/open`,path)
+                                                                    }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
+                                                                        <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
+                                                                        <p>Open in a new tab</p>
+                                                                    </div>):""}
+
                                                                     <button onClick={()=>{
                                                                         navigator.clipboard.writeText(path)
                                                                     }} className='px-[12px] w-full py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
