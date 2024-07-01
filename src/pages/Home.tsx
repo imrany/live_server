@@ -405,6 +405,33 @@ export default function Home(props:Props){
         }
     }
 
+    async function deleteTab(path:string){
+        try{
+            const request=await indexedDb()
+            const db:any=await request
+            const transaction=db.transaction("tabs","readwrite")
+            const tabStore=transaction.objectStore("tabs")
+
+            const tabByPath=tabStore.index("path")
+            const deleteTab=tabByPath.getKey([path])
+
+            deleteTab.onsuccess =()=>{
+                const del = tabStore.delete(deleteTab.result);
+                del.onsuccess =()=>{
+                    console.log("tab deleted")
+                };
+                del.onerror=()=>{
+                    console.log("error",del.result)
+                }
+            };
+            deleteTab.onerror=()=>{
+                console.log("error",deleteTab.result)
+            }   
+        }catch(error:any){
+            console.log(error.message)
+        }
+    }
+
     useEffect(()=>{
         getTabs()
         open(`${API_URL}/api/directory_content`)
@@ -455,6 +482,7 @@ export default function Home(props:Props){
                                                     <MdFolder className="w-[18px] h-[18px] mr-[5px]"/>
                                                     <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{tab.name}</p>
                                                     <MdClose id={`folder_close_btn_${tab.name}`} className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
+                                                        deleteTab(tab.path)
                                                         localStorage.setItem("path","root");
                                                         open(`${API_URL}/api/directory_content`)
                                                     }}/>
