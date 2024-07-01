@@ -49,6 +49,7 @@ import FolderImage from "../assets/icons/folder.png";
 import bg1 from "../assets/background/bg_1.png";
 import { FileInfoDialog } from "../components/dialogs";
 // import bg2 from "../assets/background/bg_2.png";
+import indexedDb from "../components/indexedDb"
 
 type Props={
     data:{
@@ -61,6 +62,7 @@ export default function Home(props:Props){
     let { API_URL }=useContext(GlobalContext)
     const navigate=useNavigate()
     let [name,setName]=useState("")
+    let [tabs,setTabs]=useState([])
     let [counter,setCounter]=useState(0)
     let [isLoading,setIsLoading]=useState(true)
     let [loadingText,setLoadingText]=useState("Loading...")
@@ -338,10 +340,76 @@ export default function Home(props:Props){
         }
     }
 
+    async function getTabs(){
+        try{
+            const request=await indexedDb()
+            const db:any=await request
+            const transaction=db.transaction("tabs","readwrite")
+            const tabStore=transaction.objectStore("tabs")
+
+            let date=new Date()
+            let newObj = Intl.DateTimeFormat('en-US', {
+                timeZone: "America/New_York"
+            })
+            let newDate = newObj.format(date);
+            let min=date.getMinutes()<10?`0${date.getMinutes()}`:`${date.getMinutes()}`
+            let time=date.getHours()>12?`${date.getHours()}:${min}PM`:`${date.getHours()}:${min}AM`
+            const getTabs=tabStore.getAll();
+            let tabs=[]
+            getTabs.onsuccess=()=>{
+                tabs.push(...getTabs.result)
+                setTabs(tabs)
+                console.log(tabs)
+            }
+                            
+            getTabs.onerror=()=>{
+                console.log("error: failed to open tab",getTabs.error)
+            }
+        }catch(error:any){
+            console.log(error)
+        }
+
+    }
+
+    async function createTab(name:string,path:string){
+        try{
+            const request=await indexedDb()
+            const db:any=await request
+            const transaction=db.transaction("tabs","readwrite")
+            const tabStore=transaction.objectStore("tabs")
+
+            let date=new Date()
+            let newObj = Intl.DateTimeFormat('en-US', {
+                timeZone: "America/New_York"
+            })
+            let newDate = newObj.format(date);
+            let min=date.getMinutes()<10?`0${date.getMinutes()}`:`${date.getMinutes()}`
+            let time=date.getHours()>12?`${date.getHours()}:${min}PM`:`${date.getHours()}:${min}AM`
+            const getTabs=tabStore.add({
+                name,
+                createdAt:`${newDate} ${time}`,
+                path,
+                type:"folder",
+                id:`${Math.random()}`
+            })
+                                                                            
+            getTabs.onsuccess=()=>{                
+                console.log("success")
+            }
+                            
+            getTabs.onerror=()=>{
+                console.log("error: failed to open tab",getTabs.error)
+            }
+        }catch(error:any){
+            console.log(error)
+        }
+    }
+
     useEffect(()=>{
+        getTabs()
         open(`${API_URL}/api/directory_content`)
         getIPs(`${API_URL}/api/get_ip_address`)
-	},[counter])
+	},[counter,tabs])
     return(
         <>
             {isLoading?(
@@ -378,14 +446,21 @@ export default function Home(props:Props){
                                             </div>
                                         )}
 
-                                        <div onClick={()=>handleCloseSettings()} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn`)} className={showSettings===true?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[3px] min-w-[128px] h-[35px] flex items-center`}>
-                                            <MdFolder className="w-[18px] h-[18px] mr-[5px]"/>
-                                            <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{name}</p>
-                                            <MdClose id="folder_close_btn" className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
-                                                localStorage.setItem("path","root");
-                                                open(`${API_URL}/api/directory_content`)
-                                            }}/>
-                                        </div>
+                                        {tabs&&tabs.map(tab=>{
+                                            return(
+                                                <div id={tab.name} onClick={()=>{
+                                                    localStorage.setItem("path",tab.path)
+                                                    handleCloseSettings()
+                                                }} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn_${tab.name}`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn_${tab.name}`)} className={showSettings===true||tab.name!==name?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`}>
+                                                    <MdFolder className="w-[18px] h-[18px] mr-[5px]"/>
+                                                    <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{tab.name}</p>
+                                                    <MdClose id={`folder_close_btn_${tab.name}`} className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
+                                                        localStorage.setItem("path","root");
+                                                        open(`${API_URL}/api/directory_content`)
+                                                    }}/>
+                                                </div>
+                                            )
+                                        })}
 
                                         {showSettingsTab?(
                                             <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-02)] border-dotted border-r-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`} >
@@ -689,8 +764,10 @@ export default function Home(props:Props){
                                                                         <p>Open with default app</p>
                                                                     </div>):""}
 
-                                                                    {!content.metadata.is_file?(<div onClick={()=>{
-                                                                        openFile(`${API_URL}/api/open`,path)
+                                                                    {!content.metadata.is_file&&tabs&&tabs.length<4?(<div 
+                                                                    onClick={()=>{                                                
+                                                                        localStorage.setItem("path",path)
+                                                                        createTab(content.name,path)
                                                                     }} className='px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35 {name_str}_open_item'>
                                                                         <MdOpenInNew className="w-[25px] h-[25px] pr-[6px]"/>
                                                                         <p>Open in a new tab</p>
