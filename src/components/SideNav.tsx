@@ -4,7 +4,6 @@ import { openDialog, createWindow, openFile, browserSupportedFiles } from "./act
 import { ErrorBody, Folder } from "../types/definitions"
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context"
-import indexedDb from "./indexedDb"
 
 type Props = {
     data:{
@@ -88,40 +87,6 @@ function SideNav(props:Props) {
                     }} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
                         <MdRefresh className="w-[18px] h-[18px]"/>
                     </button>
-                    <button title="Open a new tab" onClick={async()=>{
-                        try{
-                            const request=await indexedDb()
-                            const db:any=await request
-                            const transaction=db.transaction("tabs","readwrite")
-                            const tabStore=transaction.objectStore("tabs")
-
-                            let date=new Date()
-                            let newObj = Intl.DateTimeFormat('en-US', {
-                                timeZone: "America/New_York"
-                            })
-                            let newDate = newObj.format(date);
-                            let min=date.getMinutes()<10?`0${date.getMinutes()}`:`${date.getMinutes()}`
-                            let time=date.getHours()>12?`${date.getHours()}:${min}PM`:`${date.getHours()}:${min}AM`
-                            const getTabs=tabStore.add({
-                                name:"Root",
-                                createdAt:`${newDate} ${time}`,
-                                path:"home",
-                                type:"folder",
-                                id:`${Math.random()}`
-                            })
-                            getTabs.onsuccess=()=>{
-                                console.log("success")
-                            }
-                            getTabs.onerror=()=>{
-                                console.log("error: failed to open tab",getTabs.error)
-                            }
-                        }catch(error:any){
-                            console.log(error)
-                        }
-                    }} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
-                        <MdAdd className="w-[18px] h-[18px]"/>
-                    </button>
-
                 </div>
                 {/* folders */}
                 {searchView?"":(
