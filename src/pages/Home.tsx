@@ -546,7 +546,7 @@ export default function Home(props:Props){
                                         })}
 
                                         {showSettingsTab?(
-                                            <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-02)] border-dotted border-r-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`} >
+                                            <div onMouseEnter={()=>toggleShowCloseBtn(`settings_close_btn`)} onMouseLeave={()=>toggleShowCloseBtn(`settings_close_btn`)} className={showSettings!==true?"bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center":props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pr-[3px] min-w-[128px] h-[35px] flex items-center`} >
                                                 <div className="flex pl-[10px]" onClick={()=>{
                                                     setSettingsHeader("Settings - Anvel")
                                                     setShowSettings(true)
