@@ -402,6 +402,7 @@ export default function Home(props:Props){
                             
             getTabs.onerror=()=>{
                 console.log("error: failed to open tab",getTabs.error)
+                localStorage.setItem("path",path)
             }
         }catch(error:any){
             console.log(error)
@@ -536,10 +537,10 @@ export default function Home(props:Props){
                                                 <div id={tab.name} onClick={()=>{
                                                     localStorage.setItem("path",tab.path)
                                                     handleCloseSettings()
-                                                }} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn_${tab.name}`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn_${tab.name}`)} className={showSettings===true||tab.name!==name?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`}>
+                                                }} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} className={showSettings===true||tab.path!==localStorage.getItem("path")?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`}>
                                                     <MdFolder className="w-[18px] h-[18px] mr-[5px]"/>
                                                     <p className="mr-[3px] text-[13px] capitalize root_path_indicator">{tab.name}</p>
-                                                    <MdClose id={`folder_close_btn_${tab.name}`} className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
+                                                    <MdClose id={`folder_close_btn_${tab.path}`} className="p-[3px] none w-[22px] h-[22px] bg-[var(--primary-02)] ml-auto rounded-sm" onClick={()=>{
                                                         deleteTab(tab.path)
                                                     }}/>
                                                 </div>

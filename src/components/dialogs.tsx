@@ -87,7 +87,6 @@ export function OpenFolderDialog(props:Props){
         close_dialog()
         let tabName=path.slice(path?.lastIndexOf("/")+1,path.length)
         props.data.functions.updateTab(tabName,path)
-        props.data.functions.open(`${API_URL}/api/directory_content`)
     }
 
     return(
@@ -97,7 +96,7 @@ export function OpenFolderDialog(props:Props){
                     <div className="flex ml-auto mb-[8px] justify-end h-[22px] pb-[4px]">
                         <MdClose onClick={close_dialog} className="w-[20px] h-[20px] cursor-pointer text-[var(--primary-04)]"/>
                     </div>    
-                    <form onSubmit={handleOpenFolder} className="w-[452px] h-[90px]"> 
+                    <form id="open_folder_form" onSubmit={handleOpenFolder} className="w-[452px] h-[90px]"> 
                         <div id="feedback_container">
                             <label htmlFor="path" className="font-medium text-base text-[var(--primary-04)]">Enter or paste the folder's path</label>
                             <div className="flex gap-2 mt-2">
