@@ -167,7 +167,9 @@ function SideNav(props:Props) {
                                         data.map(i=>{
                                             return(<div className="flex-grow" key={i.name}>
                                                 <button onClick={()=>{
-                                                    props.data.updateTab(i.name,path)
+                                                    let path=localStorage.getItem("path")
+                                                    let accessPath=`${path.slice(0,path.lastIndexOf("/")+1)}${i.name}`
+                                                    props.data.updateTab(i.name,accessPath)
                                                     props.data.open(`${API_URL}/api/directory_content`)
                                                 }} className='flex w-[195px] items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
@@ -229,7 +231,6 @@ function SideNav(props:Props) {
                                             ):(
                                                 <button onClick={()=>{
                                                     props.data.updateTab(content.name,path)
-                                                    localStorage.setItem("path",path)
                                                     props.data.open(`${API_URL}/api/directory_content`)
                                                 }} key={content.name} id='folders_{name_str}' className='flex w-[195px] flex-grow items-center mx-[1px] px-3 py-1 cursor-pointer focus:ring-1 focus:ring-violet-300'>
                                                     <MdFolder className="w-[20px] h-[20px] pr-[3px]"/>
