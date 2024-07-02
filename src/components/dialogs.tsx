@@ -3,18 +3,16 @@ import { Content } from "../types/definitions";
 import { openFile } from "./actions"
 import { GlobalContext } from "../context";
 import { useContext } from "react"
-type Props={
+type FileInfoProps={
     data:{
         info:Content,
         functions:{
-            toggleDialog:any,
-            updateTab:any,
-            open:any
+            toggleDialog:any
         }
     }
 }
 
-export function FileInfoDialog(props:Props){
+export function FileInfoDialog(props:FileInfoProps){
     let { API_URL }=useContext(GlobalContext)
 
     return(
@@ -67,7 +65,16 @@ export function FileInfoDialog(props:Props){
     )
 }
 
-export function OpenFolderDialog(props:Props){
+type OpenFolderProps={
+    data:{
+        functions:{
+            updateTab:any,
+            open:any
+        }
+    }
+}
+
+export function OpenFolderDialog(props:OpenFolderProps){
     const close_dialog=()=>{
         let dialog_bg=document.getElementById("open_folder_dialog");
         dialog_bg?.classList.add("ease-in-out");
