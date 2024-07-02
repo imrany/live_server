@@ -51,6 +51,7 @@ import { FileInfoDialog } from "../components/dialogs";
 // import bg2 from "../assets/background/bg_2.png";
 import indexedDb from "../components/indexedDb"
 
+
 type Props={
     data:{
         backgroundImage:string,
