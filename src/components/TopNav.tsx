@@ -1,6 +1,5 @@
 // @flow strict
 import { MdEdit, MdExitToApp, MdNotifications, MdOutlineExpandMore, MdSettings,  } from "react-icons/md";
-import { openDialog } from "./actions";
 
 type Props={
     data:{
