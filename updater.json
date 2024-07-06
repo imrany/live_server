@@ -1,11 +1,11 @@
 {
-  "version": "v0.4.0",
-  "notes": "New version",
+  "version": "v0.4.1",
+  "notes": "Anvel's lastest version",
   "pub_date": "2024-07-07",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdncvT01XSnA5T1lXYU44bHcwbnhUa21CMWI4Ui8wQ0tmV2hCOTRuN1ZGM2I0L3MwOWhHTFNWb1pQRGlpaHhCZmhVZ3ZOS2EvajRIK2poSDRrRjJkZUdqb3gzdlVYV1EwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzIwMjczMTU0CWZpbGU6QW52ZWxfMC40LjBfeDY0X2VuLVVTLm1zaS56aXAKMGZFYmsyQ1phRWFVN0U5M3d6VGM0RU5Bb2J1N2ZaWG41VVlaT3kydHU0SVZGTXVzSGt6QVhUNitTZlBGd0d1b1BVZEY2QXcwSnNoZ0tqRlBJUVVaQ2c9PQo=",
-      "url": "https://github.com/imrany/anvel/releases/download/v0.4.0/Anvel_0.4.0_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdncvT01XSnA5T1p3eUplUE1va25tRU1EdmUwd1lPRTZQbGpjbVMwczFMeG5ER0RuK3ZoU0dRYVRGUnVhRlE4UFdEQmd1bkhwR2ZOSVVPeUI4RXlNNnRoVXEwRC9pdGdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzIwMjg3MjExCWZpbGU6QW52ZWxfMC40LjFfeDY0X2VuLVVTLm1zaS56aXAKS0g4Y1R2NXlkOUY2LzdSRXJVSHBWU2F0REFxRjFZQVZlT3Z3eVdJclU0dHZFaU1HY25JdXU3cFZrKzNzN1lvRVpMcVBJK1l4ZjFYMFViMDlUck9QQkE9PQo=",
+      "url": "https://github.com/imrany/anvel/releases/download/v0.4.1/Anvel_0.4.1_x64_en-US.msi.zip"
     }
   }
 }
