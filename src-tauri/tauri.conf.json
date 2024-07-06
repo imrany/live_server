@@ -7,9 +7,20 @@
   },
   "package": {
     "productName": "Anvel",
-    "version": "0.3.1"
+    "version": "0.4.0"
   },
   "tauri": {
+    "updater": {
+        "windows": {
+            "installMode": "passive"
+        },
+        "active": true,
+        "endpoints": [
+            "https://raw.githubusercontent.com/imrany/anvel/main/updater.json"
+        ],
+        "dialog": true,
+        "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDM5N0Q5QTU4OENGM0MzMkYKUldRdncvT01XSnA5T2FhZjlCbVg5b0toMXNqNHRBOFF6dmRqT3A2UU8xeWpxQ3cxTkVxR0ROSG8K"
+    },  
     "allowlist": {
         "all": true,
         "globalShortcut": {
