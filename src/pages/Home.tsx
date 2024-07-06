@@ -2,6 +2,7 @@ import { message } from "@tauri-apps/api/dialog";
 import { MdArrowBack, MdClose, MdContentCopy, MdFolder, MdRefresh, MdInfoOutline, MdOpenInNew, MdSend, MdSettings } from "react-icons/md";
 import Footer from "../components/Footer";
 import SideNav from "../components/SideNav";
+import ReportBugBtn from "../components/ReportBugBtn"
 import TopNav from "../components/TopNav";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context";
@@ -1039,12 +1040,12 @@ export default function Home(props:Props){
 
                                             <div>
                                                 <p>Have a question?</p>
-                                                <a href="https://github.com/imrany/anvel" target="_blank" rel="noopener noreferrer" className="text-[14px] text-blue-500 hover:text-gray-600 active:text-gray-600">Get help</a>
+                                                <a href="https://github.com/imrany/anvel" target="_blank" rel="noopener noreferrer" className="text-[14px] text-blue-500 active:text-gray-600">Get help</a>
                                             </div>
 
                                             <div>
                                                 <p>Help improve Anvel</p>
-                                                <a href="mailto:imranmat254@gmail.com" target="_blank" rel="noopener noreferrer" className="text-[14px] text-blue-500 hover:text-gray-600 active:text-gray-600">Give us feedback</a>
+                                                <a href="mailto:imranmat254@gmail.com?subject=Feedback on Anvel" target="_blank" rel="noopener noreferrer" className="text-[14px] text-blue-500 active:text-gray-600">Give us feedback</a>
                                             </div>
 
                                         </div>
@@ -1056,6 +1057,7 @@ export default function Home(props:Props){
                     <FileInfoDialog data={{info:infoContent,functions:{toggleDialog}}}/>
                     <OpenFolderDialog data={{functions:{updateTab,open}}}/>
                     <Footer data={{folders, onlyFolders, onlyFiles, open, handleShowSettings, notifications, showToast, handleCloseSettings, kickOffStartRequestLoop, endStartRequestLoop}}/>
+                    <ReportBugBtn data={{status:networkInformation}}/>
                 </div>
             )}
         </>

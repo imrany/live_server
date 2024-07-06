@@ -73,3 +73,10 @@
 .sidebar_shared_folder{
   scrollbar-width: none;
 }
+
+@supports(backdrop-filter: blur(4rem)){
+    .blur-effect{
+        background: hsl(0 0% 100% / 0.3);
+        backdrop-filter: blur(4rem);
+    }
+}
