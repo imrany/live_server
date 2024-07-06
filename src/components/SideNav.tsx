@@ -1,7 +1,7 @@
 // @flow strict
-import { MdEdit, MdFileOpen, MdFolder, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
+import { MdEdit, MdFileOpen, MdFolder, MdAdd, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
 import { openDialog, createWindow, openFile, browserSupportedFiles } from "./actions"
-import { ErrorBody, Folder } from "../types/definitions"
+import { ErrorBody, Folder, Tab } from "../types/definitions"
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context"
 
@@ -12,7 +12,10 @@ type Props = {
         open:any,
         getIPs:any,
         updateTab:any,
-        showSettings:boolean
+        showSettings:boolean,
+        openNewTab:any,
+        openFolder:any,
+        tabs:Tab[]
     }
 };
 function SideNav(props:Props) {
@@ -88,6 +91,9 @@ function SideNav(props:Props) {
                     }} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
                         <MdRefresh className="w-[18px] h-[18px]"/>
                     </button>
+                    {props.data.tabs.length<4?(<button title="Open a new tab" onClick={props.data.openNewTab} className="focus:ring-1 focus:ring-violet-300 rounded-sm cursor-pointer p-[4px]">
+                        <MdAdd className="w-[18px] h-[18px]"/>
+                    </button>):""}
                 </div>
                 {/* folders */}
                 {searchView?"":(
@@ -154,7 +160,7 @@ function SideNav(props:Props) {
                                 }):(
                                     <div className="flex flex-col justify-start items-start py-2 px-3">
                                         <p>{props.data.error.message}</p>
-                                        <button onClick={()=>openDialog("open_folder_dialog")} className="mt-2 underline flex gap-2 text-blue-500 items-center justify-center">
+                                        <button onClick={props.data.openFolder} className="mt-2 underline flex gap-2 text-blue-500 items-center justify-center">
                                             <MdEdit className="w-[16px] h-[16px]"/>
                                             <span>Edit path</span>
                                         </button>

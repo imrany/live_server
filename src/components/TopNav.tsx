@@ -7,7 +7,8 @@ type Props={
         name:string,
         handleShowSettings:any,
         settingsHeader:string,
-        showToast:any
+        showToast:any,
+        openFolder:any
     }
 }
 function TopNav(props:Props) {
@@ -38,7 +39,7 @@ function TopNav(props:Props) {
                         <MdOutlineExpandMore className="w-[25px] h-[25px] dropbtn p-[3px]"/>
                     </button>
                     <div id="dropdown_list"  className="dropdown-content  ml-[12px]">
-                        <div onClick={()=>openDialog("open_folder_dialog")} className="px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35">
+                        <div onClick={props.data.openFolder} className="px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35">
                             <MdEdit className="w-[25px] h-[25px] pr-[6px]"/>
                             <p>Open Folder</p>
                         </div>

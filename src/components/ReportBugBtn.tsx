@@ -10,7 +10,6 @@ type Props={
 }
 
 export default function ReportBugBtn(props:Props){
-    console.log(props.data.status)
 return(
     <>
         {!props.data.status.external.includes("No internet")?(

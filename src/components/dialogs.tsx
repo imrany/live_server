@@ -69,8 +69,10 @@ type OpenFolderProps={
     data:{
         functions:{
             updateTab:any,
-            open:any
+            open:any,
+            createTab:any
         }
+        isCreateTabBtnPressed:boolean
     }
 }
 
@@ -93,7 +95,7 @@ export function OpenFolderDialog(props:OpenFolderProps){
 
         close_dialog()
         let tabName=path.slice(path?.lastIndexOf("/")+1,path.length)
-        props.data.functions.updateTab(tabName,path)
+        props.data.isCreateTabBtnPressed===true?props.data.functions.createTab(tabName,path):props.data.functions.updateTab(tabName,path)
     }
 
     return(

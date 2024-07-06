@@ -7,7 +7,7 @@ import TopNav from "../components/TopNav";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../context";
 import { ErrorBody, Tab, Folder, Configurations , Content, Notifications, ChooseBackground, NetworkInformation, SendFileInfo } from "../types/definitions"
-import { openFile, createWindow, browserSupportedFiles } from "../components/actions";
+import { openFile, createWindow, browserSupportedFiles, openDialog } from "../components/actions";
 import { useNavigate } from "react-router-dom";
 import unknownFile from "../assets/icons/filetype/application-x-zerosize.svg";
 import audioMp3 from "../assets/icons/filetype/audio-mp3.svg";
@@ -138,7 +138,7 @@ export default function Home(props:Props){
     let [error,setError]=useState<ErrorBody>({
         message:""
     })
-
+    let [isCreateTabBtnPressed,setIsCreateTabBtnPressed]=useState(false)
     let chooseBackground:ChooseBackground[]=[
         {
             name:"Background Image 1",
@@ -410,6 +410,16 @@ export default function Home(props:Props){
         }
     }
 
+    function openNewTab(){
+        setIsCreateTabBtnPressed(true)
+        openDialog("open_folder_dialog")
+    }
+
+    function openFolder(){
+        setIsCreateTabBtnPressed(false)
+        openDialog("open_folder_dialog")
+    }
+
     async function deleteTab(path:string){
         try{
             const request=await indexedDb()
@@ -505,9 +515,9 @@ export default function Home(props:Props){
                 </div>
             ):(
             <div style={!props.data.backgroundImage.includes("primary-01")&&props.data.backgroundImage!=="default"?{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('${props.data.backgroundImage}') top no-repeat`, backgroundSize:"cover", backgroundAttachment:"fixed"}:props.data.backgroundImage==="default"?{background: "var(--primary-01)"}:{background: `var(--${props.data.backgroundImage})`}} className="min-h-[100vh]">
-                    <TopNav data={{name, handleShowSettings, settingsHeader, showToast}}/>
+                    <TopNav data={{name, handleShowSettings, settingsHeader, showToast, openFolder}}/>
                     <div className="flex">
-                        <SideNav data={{folders,error,open, getIPs, showSettings, updateTab}}/>
+                        <SideNav data={{folders,error,open, getIPs, showSettings, updateTab, openNewTab, openFolder, tabs}}/>
                         <div className="mt-[48px] flex-grow mb-[22px]">
                             {/*  folder view */}
                             <div id="folder_view">
@@ -1055,7 +1065,7 @@ export default function Home(props:Props){
                         </div>
                     </div>
                     <FileInfoDialog data={{info:infoContent,functions:{toggleDialog}}}/>
-                    <OpenFolderDialog data={{functions:{updateTab,open}}}/>
+                    <OpenFolderDialog data={{functions:{updateTab,open,createTab},isCreateTabBtnPressed}}/>
                     <Footer data={{folders, onlyFolders, onlyFiles, open, handleShowSettings, notifications, showToast, handleCloseSettings, kickOffStartRequestLoop, endStartRequestLoop}}/>
                     <ReportBugBtn data={{status:networkInformation}}/>
                 </div>
