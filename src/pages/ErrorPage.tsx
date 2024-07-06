@@ -1,8 +1,10 @@
+import { getVersion } from '@tauri-apps/api/app';
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { ErrorBody } from "../types/definitions";
 
-function NotFound() {
+export default function NotFound() {
+    let [anvelVersion, setAnvelVersion] = useState("");
     let navigate=useNavigate()
     let [resolveBtn,setResolveBtn]=useState(
         <button onClick={()=>window.location.href="/"} className="mr-[12px] py-[4px] px-[16px] hover:bg-[#EDFFA1] border-none font-semibold h-[28px] w-[119px] text-[13px] text-[#1D1D1D] rounded-sm bg-[#EDFFA5]">
@@ -17,7 +19,14 @@ function NotFound() {
     });
     let search:any=useSearchParams()
     let errorQuery=search[0].get("error")
+
+    async function getAnvelVersion(){
+        const version=await getVersion();
+        setAnvelVersion(version)
+    }
+
     useEffect(()=>{
+        getAnvelVersion()
         switch (errorQuery) {
             case "Not supported":
                 setErrorBody({
@@ -107,7 +116,7 @@ function NotFound() {
                             </code>
                             <code className="grid grid-cols-2 gap-6">
                                 <span>Version</span> 
-                                <span>0.1.0</span>
+                                <span>{anvelVersion}</span>
                             </code>
                             <code className="grid grid-cols-2 gap-6">
                                 <span>Environment</span>      
@@ -135,5 +144,3 @@ function NotFound() {
         </div>
     );
 };
-
-export default NotFound;
