@@ -46,6 +46,12 @@ function App() {
         await onUpdaterEvent(({ error, status }) => {
             // This will log all updater events, including status updates and errors.
             console.log('Updater event', error, status)
+            if(status==="UPTODATE"){
+                let updateAnvelElem=document.querySelectorAll("#update_anvel")
+                updateAnvelElem.forEach((elem)=>{
+                    elem?.classList.add("none")
+                })
+            }
         })
 
         const { shouldUpdate, manifest } = await checkUpdate()
@@ -63,11 +69,14 @@ function App() {
         }
     } catch (error) {
         console.error(error)
+        let updateAnvelElem=document.querySelectorAll("#update_anvel")
+        updateAnvelElem.forEach((elem)=>{
+            elem?.classList.add("none")
+        })
     }
   }
 
   useEffect(()=>{
-    updateAnvel()
     startAnvel()
     socket.onopen = () => {
       console.log('WebSocket connection established',socket);
@@ -91,7 +100,7 @@ function App() {
   //}
   return (
     <BrowserRouter>
-        <GlobalContext.Provider value={{ws,API_URL}}> 
+        <GlobalContext.Provider value={{ws,API_URL,updateAnvel}}> 
             <Routes>
                 <Route path="/welcome" element={path===null?<LandingPage data={{backgroundImage}}/>:<Navigate to="/"/>} />
                 <Route path="/" element={path!==null?<Layout/>:<Navigate to="/welcome"/>}>

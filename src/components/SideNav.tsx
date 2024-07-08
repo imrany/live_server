@@ -1,9 +1,10 @@
 // @flow strict
-import { MdEdit, MdFileOpen, MdFolder, MdAdd, MdMoreHoriz, MdRefresh, MdSearch } from "react-icons/md"
+import { MdEdit, MdFileOpen, MdFolder, MdAdd, MdMoreHoriz, MdSystemUpdateAlt, MdRefresh, MdOutlineInfo, MdSearch } from "react-icons/md"
 import { createWindow, openFile, browserSupportedFiles } from "./actions"
 import { ErrorBody, Folder, Tab } from "../types/definitions"
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../context"
+import { IoBugOutline } from "react-icons/io5";
 
 type Props = {
     data:{
@@ -15,11 +16,12 @@ type Props = {
         showSettings:boolean,
         openNewTab:any,
         openFolder:any,
-        tabs:Tab[]
+        tabs:Tab[],
+        showSettings:boolean
     }
 };
 function SideNav(props:Props) {
-    let { API_URL }=useContext(GlobalContext)
+    let { API_URL, updateAnvel }=useContext(GlobalContext)
     let [searchView,setSearchView]=useState(false)
     let [moreStuff, setMoreStuff]=useState(false)
     let [searchError,setSearchError]=useState(<></>)
@@ -70,8 +72,13 @@ function SideNav(props:Props) {
         }
     ]
 
+    useEffect(()=>{
+        updateAnvel()
+    },[])
+
     return (
         <div id="sidebar" className="overflow-hidden bg-[var(--primary-02)] border-dotted border-[#3c3c3c]/50 border-r-[1px] h-[100vh] fixed pb-[12px] bottom-[18px] left-0 w-[200px] top-[35px] text-[13px]">
+            {!props.data.showSettings?(
             <div className="flex flex-col mb-3">
                 <div className="h-[46px] flex items-center uppercase pl-[12px] pr-[8px]">
                     <button  onClick={()=>{
@@ -255,7 +262,42 @@ function SideNav(props:Props) {
                     </div>
                 ):""}
                 
-            </div>
+                </div>):(
+                    <div className="flex flex-col mb-3">
+                        {/*when settings tabs is open then sidenav item would be the following*/}
+                        <div className="resize-y">
+                            <div className="sidebar_folders overflow-y-auto pt-[35px] pb-[33px] pt-1 text-[14px] h-screen">
+                                <button className="flex h-[40px] items-center hover:bg-[var(--primary-05)] active:bg-[var(--primary-05)] px-[12px] cursor-default w-full">
+                                    <MdOutlineInfo className="w-[21px] h-[23px] pr-[6px]"/>
+                                    <p>About</p>
+                                </button>
+                                <button id="update_anvel" onClick={async()=>{
+                                    try{
+                                        // Install the update. This will also restart the app on Windows!
+                                        await installUpdate()
+
+                                        // On macOS and Linux you will need to restart the app manually.
+                                        // You could use this step to display another confirmation dialog.
+                                        await relaunch()
+                                    }catch(error:any){
+                                        console.log(error)
+                                    }
+                                }} className="flex h-[40px] items-center hover:bg-[var(--primary-05)] active:bg-[var(--primary-05)] px-[12px] cursor-default w-full">
+                                    <MdSystemUpdateAlt className="w-[21px] h-[23px] pr-[6px]"/>
+                                    <p>Update Anvel</p>
+                                </button>
+
+                                <button onClick={()=>{
+                                    window.location.href="mailto:imranmat254@gmail.com?subject=Reporting a bug in Anvel"
+                                }} className="flex h-[40px] items-center hover:bg-[var(--primary-05)] active:bg-[var(--primary-05)] px-[12px] cursor-default w-full">
+                                    <IoBugOutline className="w-[21px] h-[23px] pr-[6px]"/>
+                                    <p>Report a bug</p>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                )}
         </div>
     );
 };

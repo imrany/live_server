@@ -1,5 +1,11 @@
 // @flow strict
-import { MdEdit, MdExitToApp, MdNotifications, MdOutlineExpandMore, MdSettings,  } from "react-icons/md";
+import { MdEdit, MdExitToApp, MdNotifications, MdSystemUpdateAlt, MdOutlineExpandMore, MdSettings,  } from "react-icons/md";
+import {
+  installUpdate,
+} from '@tauri-apps/api/updater'
+import { relaunch } from '@tauri-apps/api/process'
+import { useContext, useEffect } from "react";
+import { GlobalContext } from "../context";
 
 type Props={
     data:{
@@ -10,7 +16,9 @@ type Props={
         openFolder:any
     }
 }
+
 function TopNav(props:Props) {
+    const { updateAnvel }=useContext(GlobalContext)
     window.onclick = function(event:any) {
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -28,7 +36,9 @@ function TopNav(props:Props) {
         let dropdown_list=document.getElementById("dropdown_list");
         dropdown_list?.classList.toggle("block");
     }
-    
+    useEffect(()=>{
+        updateAnvel()
+    },[])
     return (
         <nav className="fixed bg-[var(--primary-02)] top-0 left-0 right-0 z-10">
             <div className="font-semibold text-[13px] flex justify-between h-[35px] items-center">
@@ -51,6 +61,22 @@ function TopNav(props:Props) {
                         <div onClick={()=>props.data.handleShowSettings()} className="px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35">
                             <MdSettings className="w-[25px] h-[25px] pr-[6px]"/>
                             <p>Settings</p>
+                        </div>
+
+                        <div id="update_anvel" onClick={async()=>{
+                            try{
+                                // Install the update. This will also restart the app on Windows!
+                                await installUpdate()
+
+                                // On macOS and Linux you will need to restart the app manually.
+                                // You could use this step to display another confirmation dialog.
+                                await relaunch()
+                            }catch(error:any){
+                                console.log(error)
+                            }
+                        }} className="px-[12px] py-[8px] flex items-center cursor-pointer hover:bg-[#3c3c3c]/35 active:bg-[#3c3c3c]/35">
+                            <MdSystemUpdateAlt className="w-[25px] h-[25px] pr-[6px]"/>
+                            <p>Update Anvel</p>
                         </div>
 
                         <div onClick={()=>{

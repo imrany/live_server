@@ -128,7 +128,7 @@ export default function Footer(props:Props){
 
                         <div className="relative inline-block">
                             <div id="single_notifications"
-                            className="text-gray-300 flex flex-col justify-center z-20 fixed right-2 bottom-8  w-[380px]"
+                            className="text-gray-300 flex flex-col justify-center z-40 fixed right-2 bottom-8  w-[380px]"
                             >
                                 {props.data.notifications.length!==0?(
                                     <motion.div
@@ -226,7 +226,7 @@ export default function Footer(props:Props){
                         <div className="relative inline-block">
                             <div id="notification_dialog"
                             style={{boxShadow:"0px 8px 16px 0px rgba(0,0,0,0.7)"}} 
-                            className="none text-[var(--primary-04)] flex flex-col rounded-md justify-center bg-[var(--primary-03)] z-20 fixed right-2 bottom-8  w-[380px]"
+                            className="none text-[var(--primary-04)] flex flex-col rounded-md justify-center bg-[var(--primary-03)] z-40 fixed right-2 bottom-8  w-[380px]"
                             >
                                 {props.data.notifications.length!==0?
                                 <AnimatePresence>

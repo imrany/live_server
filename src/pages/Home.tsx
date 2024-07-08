@@ -213,7 +213,6 @@ export default function Home(props:Props){
 
     async function sendFile(url:string,info:SendFileInfo){
         setLoadingText("Sending...")
-        console.log(info.recipient_server)
         try{
             setIsLoading(true)
             let response=await fetch(url,{
@@ -236,6 +235,7 @@ export default function Home(props:Props){
                 }])
             }else{
                 console.log(parseRes)
+                await message(`${parseRes}`, { title: 'Error', type: 'error' });
                 setNotifications(prevNotifications => [...prevNotifications,{
                     priority:"not important",
                     message:`${parseRes}`
@@ -517,7 +517,7 @@ export default function Home(props:Props){
             <div style={!props.data.backgroundImage.includes("primary-01")&&props.data.backgroundImage!=="default"?{background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('${props.data.backgroundImage}') top no-repeat`, backgroundSize:"cover", backgroundAttachment:"fixed"}:props.data.backgroundImage==="default"?{background: "var(--primary-01)"}:{background: `var(--${props.data.backgroundImage})`}} className="min-h-[100vh]">
                     <TopNav data={{name, handleShowSettings, settingsHeader, showToast, openFolder}}/>
                     <div className="flex">
-                        <SideNav data={{folders,error,open, getIPs, showSettings, updateTab, openNewTab, openFolder, tabs}}/>
+                        <SideNav data={{folders,error,open, getIPs, showSettings, updateTab, openNewTab, openFolder, tabs, showSettings}}/>
                         <div className="mt-[48px] flex-grow mb-[22px]">
                             {/*  folder view */}
                             <div id="folder_view">
@@ -546,7 +546,7 @@ export default function Home(props:Props){
 
                                         {tabs&&tabs.map(tab=>{
                                             return(
-                                                <div id={tab.name} onClick={()=>{
+                                                <div key={tab.name} id={tab.name} onClick={()=>{
                                                     localStorage.setItem("path",tab.path)
                                                     handleCloseSettings()
                                                 }} onMouseEnter={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} onMouseLeave={()=>toggleShowCloseBtn(`folder_close_btn_${tab.path}`)} className={showSettings===true||tab.path!==localStorage.getItem("path")?`bg-[var(--primary-02)] border-dotted border-l-[1px] border-[#3c3c3c]/50 hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:props.data.backgroundImage!=="default"?`bg-[var(--${props.data.backgroundImage})] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`:`bg-[var(--primary-01)] hover:bg-[#3c3c3c]/55 cursor-pointer pl-[10px] pr-[5px] min-w-[130px] h-[35px] flex items-center`}>
@@ -1002,7 +1002,7 @@ export default function Home(props:Props){
                                             </div>
 
                                             <div>
-                                                <p className="font-semibold text-lg mb-2">User Preference</p>
+                                                <p className="font-semibold text-lg mb-2">Personalization</p>
                                                 <div className="flex flex-col">
                                                     <p>Background</p>
                                                     <select style={{color:"var(--primary-04"}} className="mt-2 active:outline-none focus:outline-none mb-4 w-[250px] border-[1px] p-[6px]" onChange={(e)=>setBackgroundOption(e.target.value)}>

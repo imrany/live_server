@@ -2,10 +2,12 @@ import { createContext } from 'react'
 
 type GlobalContext={
     API_URL:string,
-    ws:any
+    ws:any,
+    updateAnvel:any
 }
 
  export const GlobalContext=createContext<GlobalContext>({
     API_URL:"",
-    ws:null
+    ws:null,
+    updateAnvel:()=>{}
  })
