@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { FaGithub, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { MdArrowForward, MdFolder, MdMail, MdRefresh } from "react-icons/md"
 import { openDialog, createTab } from "../components/actions"
@@ -42,7 +42,7 @@ export default function LandingPage(props:Props){
                                 </button>
                             ):(
                                 <button onClick={async()=>{
-                                    let tabName=path.slice(previous?.lastIndexOf("/")+1,previous.length)
+                                    let tabName=previous.slice(previous?.lastIndexOf("/")+1,previous.length)
                                     await createTab(tabName,previous)
                                     window.location.reload()
                                 }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit font-semibold px-[20px] rounded-sm bg-[var(--yellow-primary-01)] active:bg-[var(--yellow-primary-02)]">
