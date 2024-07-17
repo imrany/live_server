@@ -1,6 +1,6 @@
 [package]
 name = "anvel"
-version = "0.4.1"
+version = "0.4.2"
 edition = "2021"
 description = "Anvel is a file sharing program."
 license = "MIT License"
@@ -26,7 +26,7 @@ repository = "https://github.com/imrany/anvel"
 homepage = "https://yourwebsite.com"
 description = "Anvel is a networking program for file sharing.."
 ProductName = "Anvel"
-LegalCopyright = "Copyright © 2022"
+LegalCopyright = "Copyright © 2024"
 
 [dependencies]
 actix-cors = "0.7.0"

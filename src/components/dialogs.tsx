@@ -3,6 +3,8 @@ import { Content } from "../types/definitions";
 import { openFile } from "./actions"
 import { GlobalContext } from "../context";
 import { useContext } from "react"
+import { useLocation } from "react-router-dom"
+
 type FileInfoProps={
     data:{
         info:Content,
@@ -68,8 +70,8 @@ export function FileInfoDialog(props:FileInfoProps){
 type OpenFolderProps={
     data:{
         functions:{
-            updateTab:any,
-            open:any,
+            updateTab?:any,
+            open?:any,
             createTab:any
         }
         isCreateTabBtnPressed:boolean
@@ -77,6 +79,8 @@ type OpenFolderProps={
 }
 
 export function OpenFolderDialog(props:OpenFolderProps){
+    let location=useLocation();
+
     const close_dialog=()=>{
         let dialog_bg=document.getElementById("open_folder_dialog");
         dialog_bg?.classList.add("ease-in-out");
@@ -96,6 +100,7 @@ export function OpenFolderDialog(props:OpenFolderProps){
         close_dialog()
         let tabName=path.slice(path?.lastIndexOf("/")+1,path.length)
         props.data.isCreateTabBtnPressed===true?props.data.functions.createTab(tabName,path):props.data.functions.updateTab(tabName,path)
+        location.pathname.includes("/welcome")?window.location.reload():""
     }
 
     return(

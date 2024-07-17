@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { message } from "@tauri-apps/api/dialog";
+import indexedDb from "./indexedDb";
 
 export async function createWindow(filePath:string, label:string, title:string){
     try{
@@ -48,3 +49,40 @@ export async function openFile(url:string,path:string){
         return error
     }
 }
+
+export async function createTab(name:string,path:string){
+        try{
+            const request=await indexedDb()
+            const db:any=await request
+            const transaction=db.transaction("tabs","readwrite")
+            const tabStore=transaction.objectStore("tabs")
+
+            let date=new Date()
+            let newObj = Intl.DateTimeFormat('en-US', {
+                timeZone: "America/New_York"
+            })
+            let newDate = newObj.format(date);
+            let min=date.getMinutes()<10?`0${date.getMinutes()}`:`${date.getMinutes()}`
+            let time=date.getHours()>12?`${date.getHours()}:${min}PM`:`${date.getHours()}:${min}AM`
+            const getTabs=tabStore.add({
+                name,
+                createdAt:`${newDate} ${time}`,
+                path,
+                type:"folder",
+                id:`${Math.random()}`
+            })
+                                                                            
+            getTabs.onsuccess=()=>{                
+                console.log("success")
+                localStorage.setItem("path",path);
+            }
+                            
+            getTabs.onerror=()=>{
+                console.log("error: failed to open tab",getTabs.error)
+                localStorage.setItem("path",path)
+            }
+        }catch(error:any){
+            console.log(error)
+        }
+    }
+

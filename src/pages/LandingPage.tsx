@@ -1,7 +1,8 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { FaGithub, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { MdArrowForward, MdFolder, MdMail, MdRefresh } from "react-icons/md"
-import { openDialog } from "../components/actions"
+import { openDialog, createTab } from "../components/actions"
+import { OpenFolderDialog } from "../components/dialogs"
 
 type Props={
     data:{
@@ -10,7 +11,8 @@ type Props={
 }
 export default function LandingPage(props:Props){
     let previous:any=localStorage.getItem("previous")===null?"":localStorage.getItem("previous")
-   
+    let isCreateTabBtnPressed=true
+       
     useEffect(()=>{
 		document.title="Welcome to Anvel"
     },[])
@@ -31,23 +33,26 @@ export default function LandingPage(props:Props){
                     <div className="mt-8 w-full">
                         <div className="flex items-center justify-center gap-2">
                             {previous.length===0?(
-                                <button onClick={()=>{
-                                    localStorage.setItem("path","home")
+                                <button onClick={async()=>{
+                                    await createTab("home","home")
                                     window.location.reload()
                                 }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit px-[20px] font-semibold rounded-sm bg-[var(--yellow-primary-01)] active:bg-[var(--yellow-primary-02)]">
                                     <span>Quick Start</span>
                                     <MdArrowForward className="w-[15px] h-[15px]"/>
                                 </button>
                             ):(
-                                <button onClick={()=>{
-                                    localStorage.setItem("path",previous)
+                                <button onClick={async()=>{
+                                    let tabName=path.slice(previous?.lastIndexOf("/")+1,previous.length)
+                                    await createTab(tabName,previous)
                                     window.location.reload()
                                 }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit font-semibold px-[20px] rounded-sm bg-[var(--yellow-primary-01)] active:bg-[var(--yellow-primary-02)]">
                                     <MdRefresh className="w-[20px] h-[20px]"/>
                                     <span>Open Recent Folder</span>
                                 </button>
                             )}
-                            <button onClick={()=>openDialog("open_folder_dialog")} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit px-[20px] rounded-sm bg-[var(--yellow-primary-01)] active:bg-[var(--yellow-primary-02)] font-semibold">
+                            <button onClick={()=>{
+                                openDialog("open_folder_dialog")
+                            }} className="flex gap-2 text-[#252525] flex-grow items-center justify-center h-[35px] w-fit px-[20px] rounded-sm bg-[var(--yellow-primary-01)] active:bg-[var(--yellow-primary-02)] font-semibold">
                                 <MdFolder className="w-[20px] h-[20px]"/>
                                 <span>Open Folder</span>
                             </button>
@@ -74,6 +79,7 @@ export default function LandingPage(props:Props){
                     <span className="mt-1">Whatsapp</span>
                 </a>
             </div>
+            <OpenFolderDialog data={{functions:{createTab},isCreateTabBtnPressed}}/>
         </div>
     )
 }
