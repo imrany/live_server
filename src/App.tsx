@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ErrorPage from './pages/ErrorPage';
 import Docs from './pages/Docs';
 import Home from "./pages/Home";
+import Media from "./pages/Media";
 import LandingPage from "./pages/LandingPage";
 import Layout from "./pages/Layout";
 import { useState, useEffect } from "react";
@@ -106,6 +107,7 @@ function App() {
                 <Route path="/" element={path!==null?<Layout/>:<Navigate to="/welcome"/>}>
                     <Route index element={<Home data={{backgroundImage, changeBackground}}/>} />
                     <Route path="docs" element={<Docs />} />
+                    <Route path="media" element={<Media />} />
                 </Route>
                 <Route path="*" element={<ErrorPage />} />
             </Routes>

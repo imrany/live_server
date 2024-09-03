@@ -62,21 +62,21 @@ export default function LandingPage(props:Props){
             </div>
             <div className="flex justify-between lg:w-[40vw] md:w-[60vw] max-md:px-[10vw] mt-20 mb-4" style={props.data.backgroundImage==="default"||props.data.backgroundImage.includes("primary-01")?{}:{color:"white"}}>
                 <a href="https://github.com/imrany/anvel" target="_blank" title="https://github.com/imrany/anvel" rel="noopener noreferrer" className="flex gap-1 items-center justify-center">
-                    <FaGithub className="w-[16px] h-[16px]"/>
-                    <span className="mt-1">Contribute on github</span>
+                    <FaGithub className="w-[18px] h-[18px]"/>
+                    <span className="mt-[2px]">Contribute on github</span>
                     <MdArrowForward className="mt-1"/>
                 </a>
                 <a href="https://twitter.com/matano_imran" title="@matano_imran" target="_blank" rel="noopener noreferrer" className="flex gap-1 items-center justify-center">
-                    <FaTwitter className="w-[16px] h-[16px]"/>
-                    <span className="mt-1">Twitter</span>
+                    <FaTwitter className="w-[18px] h-[18px]"/>
+                    <span className="mt-[2px`]">Twitter</span>
                 </a>
                 <a href="mailto:imranmat254@gmail.com" title="Send email to imranmat254@gmail.com" target="_blank" rel="noopener noreferrer" className="flex gap-1 items-center justify-center">
-                    <MdMail className="w-[16px] h-[16px]"/>
-                    <span className="mt-1">Email</span>
+                    <MdMail className="w-[18px] h-[18px]"/>
+                    <span className="mt-[2px]">Email</span>
                 </a>
                 <a href="https://wa.me/254734720752" title="Send text on whatsapp" target="_blank" rel="noopener noreferrer" className="flex gap-1 items-center justify-center">
-                    <FaWhatsapp className="w-[16px] h-[16px]"/>
-                    <span className="mt-1">Whatsapp</span>
+                    <FaWhatsapp className="w-[18px] h-[18px]"/>
+                    <span className="mt-[2px]">Whatsapp</span>
                 </a>
             </div>
             <OpenFolderDialog data={{functions:{createTab},isCreateTabBtnPressed}}/>
