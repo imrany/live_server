@@ -155,12 +155,14 @@ export default function Home(props:Props){
     const [isPlaying,setIsPlaying]=useState(false);
 
     function play(id:string){
-        document.getElementById(id).play()
+        let elem:any=document.getElementById(id)
+        elem.play()
         setIsPlaying(true)
     }
 
     function pause(id:string){
-        document.getElementById(id).pause()
+        let elem:any=document.getElementById(id)
+        elem.pause()
         setIsPlaying(false)
     }
 

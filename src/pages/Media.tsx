@@ -13,7 +13,7 @@ export default function  Media(){
     const urlParams = new URLSearchParams(queryString);
     // Get a specific parameter value
     const file = urlParams.get('file');
-    const label = urlParams.get('label');
+    const label:any = urlParams.get('label');
 
     let extension=label.slice(label.lastIndexOf(".")+1,label.length);
     console.log(extension);
@@ -31,7 +31,7 @@ export default function  Media(){
             </div>
             <div className="flex items-center justify-center flex-grow">
                 {/*<object data={`${API_URL}/api/download/${file}`} className="w-full h-full mb-6 mt-6 mx-2 "></object>*/}
-                <video controls={true} autoPlay={true} name={label} className="w-full h-full md:h-[95vh]">
+                <video controls={true} autoPlay={true} className="w-full h-full md:h-[95vh]">
                     <source src={`${API_URL}/api/download/${file}`} />
                 </video>
             </div>

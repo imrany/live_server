@@ -1,5 +1,5 @@
 import { MdOutlineAudiotrack, MdClose} from "react-icons/md";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GlobalContext } from "../context";
 import { FaPlay, FaPause } from "react-icons/fa";
 
@@ -33,7 +33,8 @@ export default function AudioTag(props:Props){
                             <FaPause onClick={()=>props.functions.pause(props.data.audioSource)} className="w-[10px] cursor-pointer h-[20px]"/>
                         )}
                         <MdClose onClick={()=>{
-                            document.getElementById(`${props.data.audioSource}`).pause()
+                            let elem:any=document.getElementById(`${props.data.audioSource}`)
+                            elem.pause()
                             props.functions.toggleAudioTag("")
                         }} className="w-[23px] cursor-pointer ml-auto h-[20px] pr-[6px]"/>
                     </div>
