@@ -1,4 +1,4 @@
-Anvel is an open-source, cross platform program that lets people share files and folderson their network.
+Anvel is an open-source, cross platform program that lets people share files and folderson their network. 
 #### Get all latest version here
 
 | __Anvel versions__ | __Status__ | __Release Date__ | __Releases__ |
