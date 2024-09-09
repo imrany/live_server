@@ -1,8 +1,20 @@
 {
   "version": "0.4.3",
   "notes": "Anvel's lastest version",
-  "pub_date": "2024-09-08T19:25:57Z",
+  "pub_date": "2024-09-09T19:25:57Z",
   "platforms": {
+    "darwin-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdncvT01XSnA5T1poWnhqM1FkdzQrS0tteC9XL1JaVDhURU5vNXNndDRmZWZzbEZLL2UwVGlEV2IzaHA5RE9CYnl0c0FsVi9pSnYxSHdpMnoxK1lLWnRoZC82eEhhdHcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzIxMjExMDU5CWZpbGU6QW52ZWxfMC40LjJfeDY0X2VuLVVTLm1zaS56aXAKZ3ZhZ1lielhyR3ZyaDZnYUdjMDFVaW1rMjY3U3NJb0JDTlFPVWpkZHN4SEhIRjMwK3YyZlpWbi8rVWx2WjhVS3ozSk5XaFcweXRpakNUZ0t4TWR3Qmc9PQo=",
+      "url": "https://github.com/imrany/anvel/releases/download/v0.4.3/Anvel_x64.app.tar.gz"
+    },
+    "darwin-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdncvT01XSnA5T1poWnhqM1FkdzQrS0tteC9XL1JaVDhURU5vNXNndDRmZWZzbEZLL2UwVGlEV2IzaHA5RE9CYnl0c0FsVi9pSnYxSHdpMnoxK1lLWnRoZC82eEhhdHcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzIxMjExMDU5CWZpbGU6QW52ZWxfMC40LjJfeDY0X2VuLVVTLm1zaS56aXAKZ3ZhZ1lielhyR3ZyaDZnYUdjMDFVaW1rMjY3U3NJb0JDTlFPVWpkZHN4SEhIRjMwK3YyZlpWbi8rVWx2WjhVS3ozSk5XaFcweXRpakNUZ0t4TWR3Qmc9PQo=",
+      "url": "https://github.com/imrany/anvel/releases/download/v0.4.3/Anvel_aarch64.app.tar.gz"
+    },
+    "linux-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdncvT01XSnA5T1poWnhqM1FkdzQrS0tteC9XL1JaVDhURU5vNXNndDRmZWZzbEZLL2UwVGlEV2IzaHA5RE9CYnl0c0FsVi9pSnYxSHdpMnoxK1lLWnRoZC82eEhhdHcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzIxMjExMDU5CWZpbGU6QW52ZWxfMC40LjJfeDY0X2VuLVVTLm1zaS56aXAKZ3ZhZ1lielhyR3ZyaDZnYUdjMDFVaW1rMjY3U3NJb0JDTlFPVWpkZHN4SEhIRjMwK3YyZlpWbi8rVWx2WjhVS3ozSk5XaFcweXRpakNUZ0t4TWR3Qmc9PQo=",
+      "url": "https://github.com/imrany/anvel/releases/download/v0.4.3/Anvel_0.4.3_amd64.AppImage.tar.gz"
+    },
     "windows-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdncvT01XSnA5T1poWnhqM1FkdzQrS0tteC9XL1JaVDhURU5vNXNndDRmZWZzbEZLL2UwVGlEV2IzaHA5RE9CYnl0c0FsVi9pSnYxSHdpMnoxK1lLWnRoZC82eEhhdHcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzIxMjExMDU5CWZpbGU6QW52ZWxfMC40LjJfeDY0X2VuLVVTLm1zaS56aXAKZ3ZhZ1lielhyR3ZyaDZnYUdjMDFVaW1rMjY3U3NJb0JDTlFPVWpkZHN4SEhIRjMwK3YyZlpWbi8rVWx2WjhVS3ozSk5XaFcweXRpakNUZ0t4TWR3Qmc9PQo=",
       "url": "https://github.com/imrany/anvel/releases/download/v0.4.3/Anvel_0.4.3_x64_en-US.msi.zip"
